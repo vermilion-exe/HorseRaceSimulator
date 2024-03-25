@@ -1,3 +1,5 @@
+package Part1;
+
 import java.util.concurrent.TimeUnit;
 import java.lang.Math;
 
@@ -206,6 +208,7 @@ public class Race
         //else print the horse's symbol
         if(theHorse.hasFallen())
         {
+            //fix
             System.out.print('\u2322');
         }
         else
