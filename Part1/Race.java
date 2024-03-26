@@ -2,6 +2,7 @@ package Part1;
 
 import java.util.concurrent.TimeUnit;
 import java.lang.Math;
+import java.nio.charset.Charset;
 
 /**
  * A three-horse race, each horse running in its own lane
@@ -27,8 +28,15 @@ public class Race
     {
         // initialise instance variables
 
-        //validate the distance
-        raceLength = distance;
+        if(distance < 0)
+        {
+            System.out.println("Distance cannot be negative");
+            System.out.println("Race length set to 0");
+            raceLength = 0;
+        }
+        else {
+            raceLength = distance;
+        }
         lane1Horse = null;
         lane2Horse = null;
         lane3Horse = null;
@@ -42,7 +50,11 @@ public class Race
      */
     public void addHorse(Horse theHorse, int laneNumber)
     {
-        //check if horse is null
+        if(theHorse == null)
+        {
+            System.out.println("The horse is not defined");
+            return;
+        }
         if (laneNumber == 1)
         {
             lane1Horse = theHorse;
@@ -69,7 +81,11 @@ public class Race
      */
     public void startRace()
     {
-        //check if all 3 horses are created, otherwise race won't start
+        if(lane1Horse == null || lane2Horse == null || lane3Horse == null)
+        {
+            System.out.println("Not all horses are ready!");
+            return;
+        }
 
         //declare a local variable to tell us when the race is finished
         boolean finished = false;
@@ -81,14 +97,16 @@ public class Race
                       
         while (!finished)
         {
-            //move each horse
-            moveHorse(lane1Horse);
-            moveHorse(lane2Horse);
-            moveHorse(lane3Horse);
-                        
+            //!!!
+            if(lane1Horse.hasFallen() && lane2Horse.hasFallen() && lane3Horse.hasFallen())
+            {
+                System.out.println("All horses have fallen!");
+                break;
+            }
+
             //print the race positions
             printRace();
-            
+
             //if any of the three horses has won the race is finished
             if ( raceWonBy(lane1Horse) || raceWonBy(lane2Horse) || raceWonBy(lane3Horse) )
             {
@@ -106,6 +124,11 @@ public class Race
                     System.out.println("The winner is " + lane3Horse.getName() + "!");
                 }
             }
+
+            //move each horse
+            moveHorse(lane1Horse);
+            moveHorse(lane2Horse);
+            moveHorse(lane3Horse);
            
             //wait for 100 milliseconds
             try{ 
@@ -167,7 +190,8 @@ public class Race
      */
     private void printRace()
     {
-        System.out.print('\u000C');  //clear the terminal window
+        System.out.print("\033[H\033[2J"); 
+        System.out.flush();  //clear the terminal window
         
         multiplePrint('=',raceLength+3); //top edge of track
         System.out.println();
@@ -209,7 +233,10 @@ public class Race
         if(theHorse.hasFallen())
         {
             //fix
-            System.out.print('\u2322');
+            String fallSign = "\u263A";
+            byte[] bytes = fallSign.getBytes(Charset.forName("UTF-16"));
+            String utf8EncodedString = new String(bytes, Charset.forName("UTF-16"));
+            System.out.print(utf8EncodedString);
         }
         else
         {
@@ -221,6 +248,7 @@ public class Race
         
         //print the | for the end of the track
         System.out.print('|');
+        System.out.print(" " + theHorse.getName() + " (Current confidence " + theHorse.getConfidence() + ")");
     }
         
     
