@@ -35,13 +35,30 @@ public class Race
             raceLength = 0;
         }
         else {
-            raceLength = distance;
+        raceLength = distance;
         }
         lane1Horse = null;
         lane2Horse = null;
         lane3Horse = null;
     }
-    
+
+    /**
+     * Sets the length of the racetrack to a given distance
+     * 
+     * @param distance the length of the racetrack (in metres/yards...)
+     */
+    public void setRaceLength(int distance)
+    {
+        if(distance < 0)
+        {
+            System.out.println("Distance cannot be negative");
+            System.out.println("Race length wasn't changed");
+        }
+        else {
+            raceLength = distance;
+        }
+    }
+
     /**
      * Adds a horse to the race in a given lane
      * 
@@ -103,10 +120,10 @@ public class Race
                 System.out.println("All horses have fallen!");
                 break;
             }
-
+                        
             //print the race positions
             printRace();
-
+            
             //if any of the three horses has won the race is finished
             if ( raceWonBy(lane1Horse) || raceWonBy(lane2Horse) || raceWonBy(lane3Horse) )
             {
@@ -248,7 +265,7 @@ public class Race
         
         //print the | for the end of the track
         System.out.print('|');
-        System.out.print(" " + theHorse.getName() + " (Current confidence " + theHorse.getConfidence() + ")");
+System.out.print(" " + theHorse.getName() + " (Current confidence " + theHorse.getConfidence() + ")");
     }
         
     
