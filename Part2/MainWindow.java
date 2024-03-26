@@ -8,7 +8,6 @@ import javax.swing.*;
 
 import Part1.Race;
 
-import java.awt.CardLayout;
 import java.awt.event.*;
 
 public class MainWindow {
@@ -76,7 +75,8 @@ public class MainWindow {
      }
 
      public void game(){
-        window.removeAll();
-        Race race = new Race(0);
+        Race race = new Race(10);
+        HorseAdditionWindow horseAdditionWindow = new HorseAdditionWindow(race);
+        horseAdditionWindow.setVisible(true);
      }
 }
