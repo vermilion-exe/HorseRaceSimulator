@@ -51,17 +51,23 @@ public class HorseAdditionWindow {
         addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (horseNameField.getText().equals("") || horseSymbolField.getText().equals("") || horseConfidenceField.getText().equals("")) {
+                    JOptionPane.showMessageDialog(window, "Please fill in all the fields", "Warning", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
                 Double confidence = 0.0;
                 try {
                     confidence = Double.parseDouble(horseConfidenceField.getText());
                 } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(window, "Confidence should be a number between 0 and 1!", "Warning", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                if(confidence < 0 || confidence > 1) {
+                    JOptionPane.showMessageDialog(window, "Confidence should be a number between 0 and 1!", "Warning", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
                 Horse horse = new Horse(horseSymbolField.getText().charAt(0), horseNameField.getText(), confidence);
                 race.addHorse(horse);
-                JLabel addedLabel = new JLabel("Horse added successfully");
+                JLabel addedLabel = new JLabel(horse.getName()+" added! Current confidence: "+horse.getConfidence());
                 addedLabel.setBounds(600, currentHeight, 200, 30);
                 currentHeight += 50;
                 window.add(addedLabel); // Add the label to the panel
