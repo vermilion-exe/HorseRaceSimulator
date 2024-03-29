@@ -15,7 +15,7 @@ public class Horse
     private int distanceTravelled;
     private boolean hasFallen;
     private Breed breed;
-    
+    private int racesWon;
       
     //Constructor of class Horse
     /**
@@ -40,6 +40,10 @@ public class Horse
     public void fall()
     {
         hasFallen = true;
+        if(getConfidence() > 0.1)
+        {
+            setConfidence(getConfidence() - 0.1);
+        }
     }
     
     public double getConfidence()
@@ -70,6 +74,7 @@ public class Horse
     public void goBackToStart()
     {
         distanceTravelled = 0;
+        hasFallen = false;
     }
     
     public boolean hasFallen()
@@ -85,6 +90,18 @@ public class Horse
     public void setConfidence(double newConfidence)
     {
         confidence = newConfidence;
+    }
+
+    public int getRacesWon(){
+        return racesWon;
+    }
+
+    public void countVictory(){
+        racesWon++;
+
+        if(getRacesWon() % 3 == 0 && getConfidence() < 1){
+            setConfidence(getConfidence() + 0.1);
+        }
     }
     
 }
