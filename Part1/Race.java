@@ -16,6 +16,8 @@ public class Race
 {
     private int raceLength;
     private ArrayList<Horse> horses;
+    private Lane laneType;
+    private boolean raceFinished = false;
     /**
      * Constructor for objects of class Race
      * Initially there are no horses in the lanes
@@ -63,6 +65,22 @@ public class Race
         return horses;
     }
 
+    public Lane getLaneType(){
+        return laneType;
+    }
+
+    public void setLaneType(Lane lane){
+        laneType = lane;
+    }
+
+    public boolean getRaceFinished(){
+        return raceFinished;
+    }
+
+    public void setRaceFinished(boolean finished){
+        raceFinished = finished;
+    }
+    
     /**
      * Adds a horse to the race in a given lane
      * 
@@ -90,54 +108,13 @@ public class Race
      * then repeatedly moved forward until the 
      * race is finished
      */
-    public void startRace()
-    {
-        if(horses.size() <2)
-        {
-            System.out.println("You need at least 2 horses to start the race!");
-            return;
-        }
-
-        //declare a local variable to tell us when the race is finished
-        boolean finished = false;
-        
-        //reset all the lanes (all horses not fallen and back to 0). 
+    public void iterateRace()
+    {      
         for(Horse horse : horses)
         {
-            horse.goBackToStart();
-        }
-                      
-        while (!finished)
-        {
-            if(allHorsesFallen())
-            {
-                System.out.println("All horses have fallen!");
-                return;
-            }
-                        
-            //print the race positions
-            printRace();
-            
-            for(Horse horse : horses)
-            {
-                if(raceWonBy(horse))
-                {
-                    finished = true;
-                    System.out.println("The winner is " + horse.getName() + "!");
-                    return;
-                }
-            }
+            moveHorse(horse);
+        }                
 
-            for(Horse horse : horses)
-            {
-                moveHorse(horse);
-            }
-           
-            //wait for 100 milliseconds
-            try{ 
-                TimeUnit.MILLISECONDS.sleep(100);
-            }catch(Exception e){}
-        }
     }
 
     public boolean allHorsesFallen()
@@ -189,7 +166,7 @@ public class Race
      * @param theHorse The horse we are testing
      * @return true if the horse has won, false otherwise.
      */
-    private boolean raceWonBy(Horse theHorse)
+    public boolean raceWonBy(Horse theHorse)
     {
         if (theHorse.getDistanceTravelled() == raceLength)
         {
@@ -201,84 +178,84 @@ public class Race
         }
     }
     
-    /***
-     * Print the race on the terminal
-     */
-    private void printRace()
-    {
-        System.out.print("\033[H\033[2J"); 
-        System.out.flush();  //clear the terminal window
+    // /***
+    //  * Print the race on the terminal
+    //  */
+    // private void printRace()
+    // {
+    //     System.out.print("\033[H\033[2J"); 
+    //     System.out.flush();  //clear the terminal window
         
-        multiplePrint('=',raceLength+3); //top edge of track
-        System.out.println();
+    //     multiplePrint('=',raceLength+3); //top edge of track
+    //     System.out.println();
         
-        for(Horse horse : horses)
-        {
-            printLane(horse);
-            System.out.println();
-        }
+    //     for(Horse horse : horses)
+    //     {
+    //         printLane(horse);
+    //         System.out.println();
+    //     }
         
-        multiplePrint('=',raceLength+3); //bottom edge of track
-        System.out.println();    
-    }
+    //     multiplePrint('=',raceLength+3); //bottom edge of track
+    //     System.out.println();    
+    // }
     
-    /**
-     * print a horse's lane during the race
-     * for example
-     * |           X                      |
-     * to show how far the horse has run
-     */
-    private void printLane(Horse theHorse)
-    {
-        //calculate how many spaces are needed before
-        //and after the horse
-        int spacesBefore = theHorse.getDistanceTravelled();
-        int spacesAfter = raceLength - theHorse.getDistanceTravelled();
+    // /**
+    //  * print a horse's lane during the race
+    //  * for example
+    //  * |           X                      |
+    //  * to show how far the horse has run
+    //  */
+    // private void printLane(Horse theHorse)
+    // {
+    //     //calculate how many spaces are needed before
+    //     //and after the horse
+    //     int spacesBefore = theHorse.getDistanceTravelled();
+    //     int spacesAfter = raceLength - theHorse.getDistanceTravelled();
         
-        //print a | for the beginning of the lane
-        System.out.print('|');
+    //     //print a | for the beginning of the lane
+    //     System.out.print('|');
         
-        //print the spaces before the horse
-        multiplePrint(' ',spacesBefore);
+    //     //print the spaces before the horse
+    //     multiplePrint(' ',spacesBefore);
         
-        //if the horse has fallen then print dead
-        //else print the horse's symbol
-        if(theHorse.hasFallen())
-        {
-            //fix
-            String fallSign = "\u263A";
-            byte[] bytes = fallSign.getBytes(Charset.forName("UTF-16"));
-            String utf8EncodedString = new String(bytes, Charset.forName("UTF-16"));
-            System.out.print(utf8EncodedString);
-        }
-        else
-        {
-            System.out.print(theHorse.getSymbol());
-        }
+    //     //if the horse has fallen then print dead
+    //     //else print the horse's symbol
+    //     if(theHorse.hasFallen())
+    //     {
+    //         //fix
+    //         String fallSign = "\u263A";
+    //         byte[] bytes = fallSign.getBytes(Charset.forName("UTF-16"));
+    //         String utf8EncodedString = new String(bytes, Charset.forName("UTF-16"));
+    //         System.out.print(utf8EncodedString);
+    //     }
+    //     else
+    //     {
+    //         System.out.print(theHorse.getSymbol());
+    //     }
         
-        //print the spaces after the horse
-        multiplePrint(' ',spacesAfter);
+    //     //print the spaces after the horse
+    //     multiplePrint(' ',spacesAfter);
         
-        //print the | for the end of the track
-        System.out.print('|');
-        System.out.print(" " + theHorse.getName() + " (Current confidence " + theHorse.getConfidence() + ")");
-    }
+    //     //print the | for the end of the track
+    //     System.out.print('|');
+    //     System.out.print(" " + theHorse.getName() + " (Current confidence " + theHorse.getConfidence() + ")");
+    // }
         
     
-    /***
-     * print a character a given number of times.
-     * e.g. printmany('x',5) will print: xxxxx
-     * 
-     * @param aChar the character to Print
-     */
-    private void multiplePrint(char aChar, int times)
-    {
-        // use for loop
-        int i = 0;
-        while (i < times)
-        {
-            System.out.print(aChar);
-            i = i + 1;
-        }
-    }
+    // /***
+    //  * print a character a given number of times.
+    //  * e.g. printmany('x',5) will print: xxxxx
+    //  * 
+    //  * @param aChar the character to Print
+    //  */
+    // private void multiplePrint(char aChar, int times)
+    // {
+    //     // use for loop
+    //     int i = 0;
+    //     while (i < times)
+    //     {
+    //         System.out.print(aChar);
+    //         i = i + 1;
+    //     }
+    // }
 }
