@@ -15,9 +15,10 @@ public class RaceWindow {
     private JFrame window;
     
     public RaceWindow(Race race) {
-        window = new JFrame("Add Horse");
+        window = new JFrame("Race");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setSize(800, 700);
+        int windowHeight = 60*race.getHorses().size()+150;
+        window.setSize(800, windowHeight);
         window.setResizable(false);
         window.setLocationRelativeTo(null);
         window.setLayout(null);
@@ -40,7 +41,7 @@ public class RaceWindow {
     }
 
     private void prepareRace(Race race, JLabel[] horses){
-        int lineY = 65;
+        int lineY = 115;
 
         for(int i = 0; i < race.getHorses().size(); i++) {
             BufferedImage tile = null;
@@ -95,8 +96,6 @@ public class RaceWindow {
         {
             horse.goBackToStart();
         }
-
-        boolean raceFinished = false;
 
         Timer timer = new Timer(100, null);
 
