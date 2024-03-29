@@ -28,14 +28,28 @@ public class RaceControlWindow {
         JLabel raceLengthLabel = new JLabel("Race track length: "+race.getRaceLength());
         raceLengthLabel.setBounds(30, 30, 200, 30);
         JSlider raceLengthSlider = new JSlider(5, 30, 5);
-        raceLengthSlider.setBounds(300, 30, 200, 50);
+        raceLengthSlider.setBounds(250, 30, 200, 50);
         raceLengthSlider.setPaintTrack(true);
         raceLengthSlider.setPaintTicks(true);
         raceLengthSlider.setPaintLabels(true);
         raceLengthSlider.setMajorTickSpacing(50);
         raceLengthSlider.setMinorTickSpacing(5);
+        raceLengthSlider.setValue(race.getRaceLength());
+
+        JLabel laneTypeLabel = new JLabel("Lane type:");
+        laneTypeLabel.setBounds(500, 20, 200, 30);
+        JComboBox laneTypeField = new JComboBox(new String[]{"Dirt", "Grass"});
+        laneTypeField.setBounds(500, 50, 200, 30);
+        laneTypeField.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                race.setLaneType(Lane.valueOf((laneTypeField.getSelectedItem().toString())));
+            }
+        });
+
+        JButton backButton = new JButton("Back");
+        backButton.setBounds(190, 500, 200, 30);
         JButton startRaceButton = new JButton("Start Race!");
-        startRaceButton.setBounds(300, 500, 200, 30);
+        startRaceButton.setBounds(410, 500, 200, 30);
 
         int horseY = 150;
         int horseX = 30;
@@ -51,8 +65,12 @@ public class RaceControlWindow {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            race.setLaneType(Lane.Dirt);
             JButton horse = new JButton(new ImageIcon(img));
+            final int horseIndex = i;
+            horse.addActionListener(e -> {
+                HorseInfoWindow horseInfoWindow = new HorseInfoWindow(race.getHorses().get(horseIndex));
+                horseInfoWindow.setVisible(true);
+            });
             JLabel horseNameLabel = new JLabel(race.getHorses().get(i).getName());
             horse.setBounds(horseX, horseY, 100, 100);
             horseNameLabel.setBounds(horseX, horseY+100, 100, 30);
@@ -69,6 +87,14 @@ public class RaceControlWindow {
             }
         });
 
+        backButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+                window.dispose();
+                HorseAdditionWindow horseAdditionWindow = new HorseAdditionWindow(race);
+                horseAdditionWindow.setVisible(true);
+            }
+        });
+
         startRaceButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
                 window.dispose();
@@ -78,6 +104,9 @@ public class RaceControlWindow {
 
         window.add(raceLengthLabel);
         window.add(raceLengthSlider);
+        window.add(laneTypeLabel);
+        window.add(laneTypeField);
+        window.add(backButton);
         window.add(startRaceButton);
     }
 
