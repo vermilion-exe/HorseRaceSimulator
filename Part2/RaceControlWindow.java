@@ -2,12 +2,15 @@ package Part2;
 
 import java.awt.Color;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import Part1.Lane;
 import Part1.Race;
 
 public class RaceControlWindow {
@@ -17,6 +20,7 @@ public class RaceControlWindow {
         window = new JFrame("Add Horse");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setSize(800, 600);
+        window.setResizable(false);
         window.setLocationRelativeTo(null);
         window.setLayout(null);
         window.getContentPane().setBackground(Color.decode("#74add6"));
@@ -47,6 +51,7 @@ public class RaceControlWindow {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            race.setLaneType(Lane.Dirt);
             JButton horse = new JButton(new ImageIcon(img));
             JLabel horseNameLabel = new JLabel(race.getHorses().get(i).getName());
             horse.setBounds(horseX, horseY, 100, 100);
@@ -61,6 +66,13 @@ public class RaceControlWindow {
             public void stateChanged(ChangeEvent e) {
                 race.setRaceLength(raceLengthSlider.getValue());
                 raceLengthLabel.setText("Race track length: "+race.getRaceLength());
+            }
+        });
+
+        startRaceButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+                window.dispose();
+                RaceWindow raceWindow = new RaceWindow(race);
             }
         });
 
