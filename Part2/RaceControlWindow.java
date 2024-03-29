@@ -17,7 +17,7 @@ public class RaceControlWindow {
     private JFrame window;
 
     public RaceControlWindow(Race race) {
-        window = new JFrame("Add Horse");
+        window = new JFrame("Race Control");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setSize(800, 600);
         window.setResizable(false);
@@ -26,9 +26,9 @@ public class RaceControlWindow {
         window.getContentPane().setBackground(Color.decode("#74add6"));
         
         JLabel raceLengthLabel = new JLabel("Race track length: "+race.getRaceLength());
-        raceLengthLabel.setBounds(30, 30, 200, 30);
+        raceLengthLabel.setBounds(30, 30, 150, 30);
         JSlider raceLengthSlider = new JSlider(5, 30, 5);
-        raceLengthSlider.setBounds(250, 30, 200, 50);
+        raceLengthSlider.setBounds(170, 30, 200, 50);
         raceLengthSlider.setPaintTrack(true);
         raceLengthSlider.setPaintTicks(true);
         raceLengthSlider.setPaintLabels(true);
@@ -37,12 +37,20 @@ public class RaceControlWindow {
         raceLengthSlider.setValue(race.getRaceLength());
 
         JLabel laneTypeLabel = new JLabel("Lane type:");
-        laneTypeLabel.setBounds(500, 20, 200, 30);
+        laneTypeLabel.setBounds(410, 20, 200, 30);
         JComboBox laneTypeField = new JComboBox(new String[]{"Dirt", "Grass"});
-        laneTypeField.setBounds(500, 50, 200, 30);
+        laneTypeField.setBounds(400, 50, 200, 30);
         laneTypeField.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 race.setLaneType(Lane.valueOf((laneTypeField.getSelectedItem().toString())));
+            }
+        });
+
+        JButton saveButton = new JButton("Save");
+        saveButton.setBounds(650, 30, 100, 100);
+        saveButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                GameSaveController.saveGame(race);
             }
         });
 
@@ -106,6 +114,7 @@ public class RaceControlWindow {
         window.add(raceLengthSlider);
         window.add(laneTypeLabel);
         window.add(laneTypeField);
+        window.add(saveButton);
         window.add(backButton);
         window.add(startRaceButton);
     }
