@@ -10,21 +10,28 @@ public class Horse
 {
     //Fields of class Horse
     private String name;
-    private Character symbol;
+    private String[] imageLinks;
     private double confidence;
     private int distanceTravelled;
     private boolean hasFallen;
+    private Breed breed;
     
       
     //Constructor of class Horse
     /**
      * Constructor for objects of class Horse
      */
-    public Horse(char horseSymbol, String horseName, double horseConfidence)
+    public Horse(String horseName, double horseConfidence, Breed horseBreed)
     {
         name = horseName;
-        symbol = horseSymbol;
+        breed = horseBreed;
+        imageLinks = new String[5];
+        for(int i  = 0; i<5; i++)
+        {
+            imageLinks[i] = "resources/horse-sprites/" + horseBreed.toString() + "_" + i + ".png";
+        }
         confidence = horseConfidence;
+        breed = horseBreed;
     }
     
     
@@ -44,15 +51,20 @@ public class Horse
     {
         return distanceTravelled;
     }
+
+    public Breed getBreed()
+    {
+        return breed;
+    }
     
     public String getName()
     {
         return name;
     }
     
-    public char getSymbol()
+    public String[] getImageLinks()
     {
-        return symbol;
+        return imageLinks;
     }
     
     public void goBackToStart()
@@ -73,11 +85,6 @@ public class Horse
     public void setConfidence(double newConfidence)
     {
         confidence = newConfidence;
-    }
-    
-    public void setSymbol(char newSymbol)
-    {
-        symbol = newSymbol;
     }
     
 }

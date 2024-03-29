@@ -55,6 +55,14 @@ public class Race
         }
     }
 
+    public int getRaceLength(){
+        return raceLength;
+    }
+
+    public ArrayList<Horse> getHorses(){
+        return horses;
+    }
+
     /**
      * Adds a horse to the race in a given lane
      * 
