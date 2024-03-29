@@ -112,6 +112,7 @@ public class RaceWindow {
                 if(race.raceWonBy(horse))
                 {
                     race.setRaceFinished(true);
+                    horse.countVictory();
                     for(int i = 0; i < horses.length; i++) {
                         BufferedImage horseIcon = null;
                         try{
@@ -122,13 +123,13 @@ public class RaceWindow {
                         }
                         horses[i].setIcon(new ImageIcon(horseIcon));
                     }
-                    window.add(backButton);
                     JOptionPane.showMessageDialog(window, horse.getName()+" won!", "Message", JOptionPane.INFORMATION_MESSAGE);
                     break;
                 }
             }
 
             if(race.getRaceFinished()){
+                window.add(backButton);
                 ((Timer)e.getSource()).stop();
             }
             else{
@@ -152,6 +153,7 @@ public class RaceWindow {
         });
 
         timer.start();
+        race.setRaceFinished(false);
     }
 
     private double getPosition(double input, double inputMin, double inputMax, double outputMin, double outputMax) {
