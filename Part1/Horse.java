@@ -96,6 +96,10 @@ public class Horse
         return racesWon;
     }
 
+    public void setRacesWon(int racesWon){
+        this.racesWon = racesWon;
+    }
+
     public void countVictory(){
         racesWon++;
 
