@@ -73,8 +73,8 @@ public class HorseAdditionWindow {
                     JOptionPane.showMessageDialog(window, "Confidence should be a number between 0 and 1!", "Warning", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
-                if(confidence < 0 || confidence > 1) {
-                    JOptionPane.showMessageDialog(window, "Confidence should be a number between 0 and 1!", "Warning", JOptionPane.WARNING_MESSAGE);
+                if(confidence < 0.1 || confidence > 1) {
+                    JOptionPane.showMessageDialog(window, "Confidence should be a number between 0.1 and 1!", "Warning", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
                 Horse horse = new Horse(horseNameField.getText(), confidence, Breed.valueOf(horseBreedField.getSelectedItem().toString()));
