@@ -38,6 +38,7 @@ public class Race
         raceLength = distance;
         }
         horses = new ArrayList<Horse>();
+        laneType = Lane.Dirt;
     }
 
     /**
