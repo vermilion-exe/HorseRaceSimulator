@@ -8,18 +8,13 @@ import java.io.File;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-public class RaceWindow {
-    private JFrame window;
+public class RaceWindow extends Window {
     
     public RaceWindow(Race race) {
-        window = new JFrame("Race");
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        super("Race");
+
         int windowHeight = 60*race.getHorses().size()+150;
         window.setSize(800, windowHeight);
-        window.setResizable(false);
-        window.setLocationRelativeTo(null);
-        window.setLayout(null);
-        window.getContentPane().setBackground(Color.decode("#74add6"));
 
         JButton backButton = new JButton("Back");
         backButton.setBounds(300, 15, 200, 30);
@@ -155,10 +150,6 @@ public class RaceWindow {
 
     private double getPosition(double input, double inputMin, double inputMax, double outputMin, double outputMax) {
         return ((input - inputMin) / (inputMax - inputMin)) * (outputMax - outputMin) + outputMin;
-    }
-
-    public void setVisible(boolean visible) {
-        window.setVisible(visible);
     }
 
 }

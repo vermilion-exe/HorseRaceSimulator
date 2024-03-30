@@ -10,17 +10,10 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-public class RaceControlWindow {
-    private JFrame window;
+public class RaceControlWindow extends Window{
 
     public RaceControlWindow(Race race) {
-        window = new JFrame("Race Control");
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setSize(800, 600);
-        window.setResizable(false);
-        window.setLocationRelativeTo(null);
-        window.setLayout(null);
-        window.getContentPane().setBackground(Color.decode("#74add6"));
+        super("Race Control");
         
         JLabel raceLengthLabel = new JLabel("Race track length: "+race.getRaceLength());
         raceLengthLabel.setBounds(30, 30, 150, 30);
@@ -132,10 +125,6 @@ public class RaceControlWindow {
         window.add(saveButton);
         window.add(backButton);
         window.add(startRaceButton);
-    }
-
-    public void setVisible(boolean visible) {
-        window.setVisible(visible);
     }
     
 }

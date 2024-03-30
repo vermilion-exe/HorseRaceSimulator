@@ -9,33 +9,17 @@ import java.awt.GraphicsConfiguration;
 import java.awt.GridLayout;
 import java.awt.event.*;
 
-public class HorseAdditionWindow {
+public class HorseAdditionWindow extends Window{
 
-    private JFrame window;
     private int currentHeight = 80;
 
     public HorseAdditionWindow(Race race) {
-        window = new JFrame("Add Horse");
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setSize(800, 600);
-        window.setLocationRelativeTo(null);
-        window.setLayout(null);
-        window.getContentPane().setBackground(Color.decode("#74add6"));
-
-
-        // JPanel panel = new JPanel();
-        // panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
-        // panel.setPreferredSize(new Dimension(200, 30));
+        super("Add Horse");
 
         JLabel horseNameLabel = new JLabel("Horse Name:");
         horseNameLabel.setBounds(50, 30, 200, 30);
         JTextField horseNameField = new JTextField("Name");
         horseNameField.setBounds(50, 80, 200, 30);
-
-        // JLabel horseSymbolLabel = new JLabel("Horse Symbol:");
-        // horseSymbolLabel.setBounds(50, 130, 200, 30);
-        // JTextField horseSymbolField = new JTextField("Symbol");
-        // horseSymbolField.setBounds(50, 180, 200, 30);
 
         JLabel horseConfidenceLabel = new JLabel("Horse Confidence:");
         horseConfidenceLabel.setBounds(50, 130, 200, 30);
@@ -55,7 +39,7 @@ public class HorseAdditionWindow {
 
         JLabel horseLabel = new JLabel("Horses:");
         horseLabel.setBounds(500, 30, 200, 30);
-
+        
         addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (horseNameField.getText().equals("") || horseConfidenceField.getText().equals("")) {
@@ -102,8 +86,6 @@ public class HorseAdditionWindow {
 
         window.add(horseNameLabel);
         window.add(horseNameField);
-        // window.add(horseSymbolLabel);
-        // window.add(horseSymbolField);
         window.add(horseConfidenceLabel);
         window.add(horseConfidenceField);
         window.add(horseBreedLabel);
@@ -112,10 +94,6 @@ public class HorseAdditionWindow {
         window.add(continueButton);
         window.add(horseLabel);
 
-    }
-    
-    public void setVisible(boolean visible) {
-        window.setVisible(visible);
     }
 
 }

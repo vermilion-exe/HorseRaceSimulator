@@ -6,17 +6,12 @@ import java.awt.Image;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-public class HorseInfoWindow {
-    private JFrame window;
+public class HorseInfoWindow extends Window{
     
     public HorseInfoWindow(Race race, int horseIndex) {
-        window = new JFrame("Horse Info");
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        super("Horse Info");
+
         window.setSize(500, 300);
-        window.setResizable(false);
-        window.setLocationRelativeTo(null);
-        window.setLayout(null);
-        window.getContentPane().setBackground(Color.decode("#74add6"));
 
         Horse horse = race.getHorses().get(horseIndex);
 
@@ -79,9 +74,5 @@ public class HorseInfoWindow {
         window.add(horseConfidence);
         window.add(closeButton);
         window.add(deleteButton);
-    }
-
-    public void setVisible(boolean visible) {
-        window.setVisible(visible);
     }
 }

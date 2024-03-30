@@ -2,16 +2,10 @@ package Part2;
 
 import javax.swing.*;
 
-public class ShopWindow {
-
-    private JFrame window;
+public class ShopWindow extends Window {
 
     public ShopWindow(){
-        
-    }
-    
-    public void setVisible(boolean visible) {
-        window.setVisible(visible);
+        super("Shop Window");
     }
 
 }

@@ -10,18 +10,10 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.*;
 
-public class MainWindow {
+public class MainWindow extends Window {
 
-    private JFrame window;
-
-    public MainWindow() {
-        window = new JFrame("Horse Race Simulator");
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setSize(800, 600);
-        window.setResizable(false);
-        window.setLocationRelativeTo(null);
-        window.setLayout(null);
-        window.getContentPane().setBackground(Color.decode("#74add6"));
+    public MainWindow(){
+        super("Horse Race Simulator");
     }
 
     public void menu() {
@@ -67,10 +59,6 @@ public class MainWindow {
 
         //Adding Components to the frame.
         window.setVisible(true);
-     }
-
-     public void setVisible(boolean visible){
-        window.setVisible(visible);
      }
 
      public void game(boolean isNewGame){
