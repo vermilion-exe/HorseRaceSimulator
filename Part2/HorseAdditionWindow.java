@@ -44,7 +44,7 @@ public class HorseAdditionWindow {
 
         JLabel horseBreedLabel = new JLabel("Horse Breed:");
         horseBreedLabel.setBounds(50, 230, 200, 30);
-        JComboBox horseBreedField = new JComboBox(new String[]{"Haflinger", "Andalusian", "Eriskay", "Caspian", "Arabian", "Aegidienberger", "Connemara", "Morgan"});
+        JComboBox horseBreedField = new JComboBox(new String[]{"Eriskay", "Haflinger", "Aegidienberger", "Connemara", "Andalusian", "Caspian", "Morgan", "Arabian"});
         horseBreedField.setBounds(50, 280, 200, 30);
 
         JButton addButton = new JButton("Add Horse");
@@ -71,6 +71,10 @@ public class HorseAdditionWindow {
                 }
                 if(confidence < 0.1 || confidence > 1) {
                     JOptionPane.showMessageDialog(window, "Confidence should be a number between 0.1 and 1!", "Warning", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                if(race.getPlayer().getUnlockedBreeds().contains(Breed.valueOf(horseBreedField.getSelectedItem().toString())) == false) {
+                    JOptionPane.showMessageDialog(window, "You have not unlocked this breed!", "Warning", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
                 Horse horse = new Horse(horseNameField.getText(), confidence, Breed.valueOf(horseBreedField.getSelectedItem().toString()));

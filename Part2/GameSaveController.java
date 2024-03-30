@@ -36,7 +36,7 @@ public class GameSaveController {
 
     public static Race loadGame() {
         // Load the game
-        Race race = new Race(10);
+        Race race = new Race(10, new Player());
 
         FileReader fileReader = null;
         try{

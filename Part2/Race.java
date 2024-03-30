@@ -16,6 +16,7 @@ public class Race
 {
     private int raceLength;
     private ArrayList<Horse> horses;
+    private Player player;
     private Lane laneType;
     private boolean raceFinished = false;
     /**
@@ -24,7 +25,7 @@ public class Race
      * 
      * @param distance the length of the racetrack (in metres/yards...)
      */
-    public Race(int distance)
+    public Race(int distance, Player player)
     {
         // initialise instance variables
 
@@ -37,6 +38,7 @@ public class Race
         else {
         raceLength = distance;
         }
+        this.player = player;
         horses = new ArrayList<Horse>();
         laneType = Lane.Dirt;
     }
@@ -64,6 +66,10 @@ public class Race
 
     public ArrayList<Horse> getHorses(){
         return horses;
+    }
+
+    public Player getPlayer(){
+        return player;
     }
 
     public Lane getLaneType(){
