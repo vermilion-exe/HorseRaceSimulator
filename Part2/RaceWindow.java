@@ -135,6 +135,7 @@ public class RaceWindow {
                 race.iterateRace();
                 for(int i = 0; i < horses.length; i++) {
                     int xPosition = (int)getPosition(race.getHorses().get(i).getDistanceTravelled(), 0, race.getRaceLength(), 0, 730);
+                    xPosition = xPosition > 730 ? 730 : xPosition;
                     horses[i].setBounds(xPosition, horses[i].getY(), 60, 60);
                     BufferedImage horseIcon = null;
                     try{

@@ -16,6 +16,7 @@ public class Horse
     private boolean hasFallen;
     private Breed breed;
     private int racesWon;
+    private int speed;
       
     //Constructor of class Horse
     /**
@@ -32,9 +33,31 @@ public class Horse
         }
         confidence = horseConfidence;
         breed = horseBreed;
+        speed = getBreedSpeed(breed);
     }
     
-    
+    private static int getBreedSpeed(Breed breed){
+        switch(breed){
+            case Arabian:
+                return 3;
+            case Morgan:
+                return 3;
+            case Caspian:
+                return 2;
+            case Andalusian:
+                return 2;
+            case Connemara:
+                return 2;
+            case Aegidienberger:
+                return 1;
+            case Haflinger:
+                return 1;
+            case Eriskay:
+                return 1;
+            default:
+                return 0;
+        }
+    }
     
     //Other methods of class Horse
     public void fall()
@@ -54,6 +77,14 @@ public class Horse
     public int getDistanceTravelled()
     {
         return distanceTravelled;
+    }
+
+    public void setDistanceTravelled(int distanceTravelled){
+        this.distanceTravelled = distanceTravelled;
+    }
+
+    public int getSpeed(){
+        return speed;
     }
 
     public Breed getBreed()
@@ -84,7 +115,7 @@ public class Horse
 
     public void moveForward()
     {
-        distanceTravelled++;   
+        distanceTravelled += speed;   
     }
 
     public void setConfidence(double newConfidence)

@@ -34,16 +34,19 @@ public class HorseInfoWindow {
         horseIcon.setBounds(30, 30, 200, 200);
 
         JLabel horseName = new JLabel("Name: " + horse.getName());
-        horseName.setBounds(300, 30, 200, 30);
+        horseName.setBounds(300, 10, 200, 30);
 
         JLabel horseBreed = new JLabel("Breed: " + horse.getBreed());
-        horseBreed.setBounds(300, 70, 200, 30);
+        horseBreed.setBounds(300, 50, 200, 30);
 
         JLabel horseRacesWon = new JLabel("Races won: " + horse.getRacesWon());
-        horseRacesWon.setBounds(300, 110, 200, 30);
+        horseRacesWon.setBounds(300, 90, 200, 30);
+
+        JLabel horseSpeed = new JLabel("Speed: " + horse.getSpeed());
+        horseSpeed.setBounds(300, 130, 200, 30);
 
         JLabel horseConfidence = new JLabel("Confidence: " + horse.getConfidence());
-        horseConfidence.setBounds(300, 150, 200, 30);
+        horseConfidence.setBounds(300, 170, 200, 30);
 
         JButton closeButton = new JButton("Close");
         closeButton.setBounds(40, 220, 200, 30);
@@ -75,6 +78,7 @@ public class HorseInfoWindow {
         window.add(horseName);
         window.add(horseBreed);
         window.add(horseRacesWon);
+        window.add(horseSpeed);
         window.add(horseConfidence);
         window.add(closeButton);
         window.add(deleteButton);
