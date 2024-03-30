@@ -76,7 +76,8 @@ public class RaceControlWindow {
             JButton horse = new JButton(new ImageIcon(img));
             final int horseIndex = i;
             horse.addActionListener(e -> {
-                HorseInfoWindow horseInfoWindow = new HorseInfoWindow(race.getHorses().get(horseIndex));
+                window.dispose();
+                HorseInfoWindow horseInfoWindow = new HorseInfoWindow(race, horseIndex);
                 horseInfoWindow.setVisible(true);
             });
             JLabel horseNameLabel = new JLabel(race.getHorses().get(i).getName());

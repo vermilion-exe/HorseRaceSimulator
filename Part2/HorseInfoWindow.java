@@ -7,11 +7,12 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import Part1.Horse;
+import Part1.Race;
 
 public class HorseInfoWindow {
     private JFrame window;
     
-    public HorseInfoWindow(Horse horse) {
+    public HorseInfoWindow(Race race, int horseIndex) {
         window = new JFrame("Horse Info");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setSize(500, 300);
@@ -19,6 +20,8 @@ public class HorseInfoWindow {
         window.setLocationRelativeTo(null);
         window.setLayout(null);
         window.getContentPane().setBackground(Color.decode("#74add6"));
+
+        Horse horse = race.getHorses().get(horseIndex);
 
         Image img = null;
         try {
@@ -43,9 +46,29 @@ public class HorseInfoWindow {
         horseConfidence.setBounds(300, 150, 200, 30);
 
         JButton closeButton = new JButton("Close");
-        closeButton.setBounds(90, 220, 200, 30);
+        closeButton.setBounds(40, 220, 200, 30);
         closeButton.addActionListener(e -> {
             window.dispose();
+            RaceControlWindow raceWindow = new RaceControlWindow(race);
+            raceWindow.setVisible(true);
+        });
+
+        JButton deleteButton = new JButton("Delete");
+        deleteButton.setBounds(260, 220, 200, 30);
+        deleteButton.addActionListener(e -> {
+            int confirm = JOptionPane.showConfirmDialog(window, "Are you sure you want to delete this horse?", "Confirmation", JOptionPane.YES_NO_OPTION);
+            if (confirm == JOptionPane.YES_OPTION) {
+                race.getHorses().remove(horseIndex);
+                window.dispose();
+                if(race.getHorses().size() < 2) {
+                    HorseAdditionWindow horseAdditionWindow = new HorseAdditionWindow(race);
+                    horseAdditionWindow.setVisible(true);
+                }
+                else{
+                    RaceControlWindow raceWindow = new RaceControlWindow(race);
+                    raceWindow.setVisible(true);
+                }
+            }
         });
 
         window.add(horseIcon);
@@ -54,6 +77,7 @@ public class HorseInfoWindow {
         window.add(horseRacesWon);
         window.add(horseConfidence);
         window.add(closeButton);
+        window.add(deleteButton);
     }
 
     public void setVisible(boolean visible) {

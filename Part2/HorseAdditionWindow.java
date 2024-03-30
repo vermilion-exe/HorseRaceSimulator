@@ -95,8 +95,8 @@ public class HorseAdditionWindow {
                     return;
                 }
                 window.setVisible(false);
-                RaceControlWindow raceWindow = new RaceControlWindow(race);
-                raceWindow.setVisible(true);
+                RaceControlWindow raceControlWindow = new RaceControlWindow(race);
+                raceControlWindow.setVisible(true);
             }
         });
 
