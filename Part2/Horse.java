@@ -1,4 +1,4 @@
-package Part1;
+package Part2;
 
 /**
  * Write a description of class Horse here.

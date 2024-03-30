@@ -9,10 +9,6 @@ import java.awt.GraphicsConfiguration;
 import java.awt.GridLayout;
 import java.awt.event.*;
 
-import Part1.Breed;
-import Part1.Horse;
-import Part1.Race;
-
 public class HorseAdditionWindow {
 
     private JFrame window;

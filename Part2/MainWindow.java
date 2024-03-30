@@ -6,8 +6,6 @@ import java.io.IOException;
 
 import javax.swing.*;
 
-import Part1.Race;
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.*;

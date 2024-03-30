@@ -6,11 +6,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 
-import Part1.Breed;
-import Part1.Horse;
-import Part1.Lane;
-import Part1.Race;
-
 public class GameSaveController {
 
     public static void saveGame(Race race) {

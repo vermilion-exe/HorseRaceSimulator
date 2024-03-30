@@ -10,9 +10,6 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import Part1.Lane;
-import Part1.Race;
-
 public class RaceControlWindow {
     private JFrame window;
 

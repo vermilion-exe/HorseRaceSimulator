@@ -6,9 +6,6 @@ import java.awt.Image;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-import Part1.Horse;
-import Part1.Race;
-
 public class HorseInfoWindow {
     private JFrame window;
     

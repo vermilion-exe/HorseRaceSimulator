@@ -8,9 +8,6 @@ import java.io.File;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-import Part1.Horse;
-import Part1.Race;
-
 public class RaceWindow {
     private JFrame window;
     
