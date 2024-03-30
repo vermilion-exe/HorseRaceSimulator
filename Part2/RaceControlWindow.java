@@ -56,6 +56,23 @@ public class RaceControlWindow {
         JButton startRaceButton = new JButton("Start Race!");
         startRaceButton.setBounds(410, 500, 200, 30);
 
+        Image shopImage = null;
+        try {
+            shopImage = ImageIO.read(getClass().getResource("resources/shop.png"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        JButton shopButton = new JButton(new ImageIcon(shopImage));
+        shopButton.setBounds(650, 500, 100, 100);
+        shopButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                window.dispose();
+                ShopWindow shopWindow = new ShopWindow();
+                shopWindow.setVisible(true);
+            }
+        });
+
+
         int horseY = 150;
         int horseX = 30;
         for(int i = 0; i<race.getHorses().size(); i++) {
