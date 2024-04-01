@@ -58,6 +58,29 @@ public class Horse
                 return 0;
         }
     }
+
+    public static int getBreedPrice(Breed breed){
+        switch(breed){
+            case Arabian:
+                return 2000;
+            case Morgan:
+                return 2000;
+            case Caspian:
+                return 1000;
+            case Andalusian:
+                return 1000;
+            case Connemara:
+                return 1000;
+            case Aegidienberger:
+                return 500;
+            case Haflinger:
+                return 500;
+            case Eriskay:
+                return 500;
+            default:
+                return 0;
+        }
+    }
     
     //Other methods of class Horse
     public void fall()
