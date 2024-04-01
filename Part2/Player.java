@@ -10,11 +10,12 @@ public class Player {
 
     public Player() {
         this.money = 5000; //default money
+
         this.unlockedBreeds = new ArrayList<Breed>() {{
             add(Breed.Eriskay);
             add(Breed.Haflinger);
             add(Breed.Aegidienberger);
-        }};
+        }}; // default breeds
     }
     
     public int getMoney() {
@@ -31,6 +32,17 @@ public class Player {
 
     public void addUnlockedBreed(Breed breed) {
         unlockedBreeds.add(breed);
+    }
+
+    public boolean buy(Breed breed){
+        if(money >= Horse.getBreedPrice(breed)){
+            money -= Horse.getBreedPrice(breed);
+            unlockedBreeds.add(breed);
+            
+            return true;
+        }
+
+        return false;
     }
 
 }

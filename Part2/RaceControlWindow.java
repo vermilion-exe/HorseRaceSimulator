@@ -60,7 +60,7 @@ public class RaceControlWindow extends Window{
         shopButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 window.dispose();
-                ShopWindow shopWindow = new ShopWindow();
+                ShopWindow shopWindow = new ShopWindow(race);
                 shopWindow.setVisible(true);
             }
         });
@@ -122,6 +122,7 @@ public class RaceControlWindow extends Window{
         window.add(raceLengthSlider);
         window.add(laneTypeLabel);
         window.add(laneTypeField);
+        window.add(shopButton);
         window.add(saveButton);
         window.add(backButton);
         window.add(startRaceButton);
