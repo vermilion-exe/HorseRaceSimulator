@@ -72,6 +72,10 @@ public class Race
         return player;
     }
 
+    public void setPlayer(Player player){
+        this.player = player;
+    }
+
     public Lane getLaneType(){
         return laneType;
     }
