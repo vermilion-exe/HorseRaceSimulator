@@ -74,11 +74,13 @@ public class GameSaveController {
             int money = Integer.parseInt(bufferedReader.readLine());
             player.setMoney(money);
             String unlockedBreed = bufferedReader.readLine();
-            while(!unlockedBreed.equals("")) {
+            while(!unlockedBreed.isBlank()) {
                 player.addUnlockedBreed(Breed.valueOf(unlockedBreed));
                 unlockedBreed = bufferedReader.readLine();
             }
             race.setPlayer(player);
+
+            bufferedReader.readLine();
 
             String name;
             while((name=bufferedReader.readLine())!= null) {
