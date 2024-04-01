@@ -5,6 +5,8 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GameSaveController {
 
@@ -22,6 +24,14 @@ public class GameSaveController {
         printWriter.println("Race data:");
         printWriter.println(race.getRaceLength());
         printWriter.println(race.getLaneType());
+
+        printWriter.println("Player data:");
+        printWriter.println(race.getPlayer().getMoney());
+        for(Breed breed : race.getPlayer().getUnlockedBreeds()) {
+            printWriter.println(breed);
+        }
+
+        printWriter.println("");
 
         printWriter.println("Horses:");
         for(Horse horse : race.getHorses()) {
@@ -52,11 +62,24 @@ public class GameSaveController {
                 bufferedReader.close();
                 return race;
             }
+
             int raceLength = Integer.parseInt(bufferedReader.readLine());
             Lane laneType = Lane.valueOf(bufferedReader.readLine());
-            bufferedReader.readLine();
             race.setRaceLength(raceLength);
             race.setLaneType(laneType);
+
+            bufferedReader.readLine();
+
+            Player player = new Player();
+            int money = Integer.parseInt(bufferedReader.readLine());
+            player.setMoney(money);
+            String unlockedBreed = bufferedReader.readLine();
+            while(!unlockedBreed.equals("")) {
+                player.addUnlockedBreed(Breed.valueOf(unlockedBreed));
+                unlockedBreed = bufferedReader.readLine();
+            }
+            race.setPlayer(player);
+
             String name;
             while((name=bufferedReader.readLine())!= null) {
                 Breed breed = Breed.valueOf(bufferedReader.readLine());
