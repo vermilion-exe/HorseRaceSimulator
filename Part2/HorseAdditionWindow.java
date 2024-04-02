@@ -55,7 +55,7 @@ public class HorseAdditionWindow extends Window{
         
         addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (horseNameField.getText().equals("") || horseConfidenceField.getText().equals("")) {
+                if (horseNameField.getText().equals("")) {
                     JOptionPane.showMessageDialog(window, "Please fill in all the fields", "Warning", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
