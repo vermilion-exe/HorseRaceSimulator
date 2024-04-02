@@ -1,5 +1,6 @@
 package Part2;
 
+import java.awt.Color;
 import java.awt.Image;
 
 import javax.imageio.ImageIO;
@@ -10,6 +11,12 @@ public class ShopWindow extends Window {
     public ShopWindow(Race race){
         super("Shop");
         window.setSize(680, 700);
+
+        JLabel moneyLabel = new JLabel();
+        moneyLabel.setBounds(20, 20, 100, 30);
+        moneyLabel.setText("Money: $"+race.getPlayer().getMoney());
+        moneyLabel.setBackground(Color.lightGray);
+        moneyLabel.setOpaque(true);
 
         JLabel horseDisplay = new JLabel();
         horseDisplay.setBounds(290, 100, 200, 200);
@@ -64,6 +71,7 @@ public class ShopWindow extends Window {
                            JOptionPane.showMessageDialog(window, "Breed bought successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
                            horseDisplay.setIcon(new ImageIcon(imgDisplay.getScaledInstance(100, 100, Image.SCALE_DEFAULT)));
                            breedLabel.setText(breeds[breedIndex].toString());
+                           moneyLabel.setText("Money: $"+race.getPlayer().getMoney());
                        }
                        else{
                            JOptionPane.showMessageDialog(window, "You don't have enough money to buy this breed!", "Warning", JOptionPane.WARNING_MESSAGE);
@@ -79,6 +87,7 @@ public class ShopWindow extends Window {
         }
 
         window.add(horseDisplay);
+        window.add(moneyLabel);
         window.add(barn);
         window.add(backButton);
     }
