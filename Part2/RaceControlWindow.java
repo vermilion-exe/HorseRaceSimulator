@@ -55,8 +55,8 @@ public class RaceControlWindow extends Window{
         } catch (Exception e) {
             e.printStackTrace();
         }
-        JButton shopButton = new JButton(new ImageIcon(shopImage));
-        shopButton.setBounds(650, 500, 100, 100);
+        JButton shopButton = new JButton(new ImageIcon(shopImage.getScaledInstance(100, 100, Image.SCALE_DEFAULT)));
+        shopButton.setBounds(650, 450, 100, 100);
         shopButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 window.dispose();
