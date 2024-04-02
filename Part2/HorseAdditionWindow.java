@@ -8,6 +8,7 @@ import java.awt.Dimension;
 import java.awt.GraphicsConfiguration;
 import java.awt.GridLayout;
 import java.awt.event.*;
+import java.util.Hashtable;
 
 public class HorseAdditionWindow extends Window{
 
@@ -23,8 +24,20 @@ public class HorseAdditionWindow extends Window{
 
         JLabel horseConfidenceLabel = new JLabel("Horse Confidence:");
         horseConfidenceLabel.setBounds(50, 130, 200, 30);
-        JTextField horseConfidenceField = new JTextField("Confidence");
-        horseConfidenceField.setBounds(50, 180, 200, 30);
+        JSlider horseConfidenceSlider = new JSlider();
+        horseConfidenceSlider.setMinimum(10); 
+        horseConfidenceSlider.setMaximum(100);
+        horseConfidenceSlider.setLabelTable(new Hashtable<Integer, JLabel>() {{
+            put(10, new JLabel("0.1")); 
+            put(50, new JLabel("0.5"));
+            put(100, new JLabel("1.0"));
+        }});
+        horseConfidenceSlider.setPaintTrack(true);
+        horseConfidenceSlider.setPaintLabels(true);
+        horseConfidenceSlider.setPaintTicks(true);
+        horseConfidenceSlider.setMajorTickSpacing(50);
+        horseConfidenceSlider.setMinorTickSpacing(5);
+        horseConfidenceSlider.setBounds(50, 180, 200, 50);
 
         JLabel horseBreedLabel = new JLabel("Horse Breed:");
         horseBreedLabel.setBounds(50, 230, 200, 30);
@@ -46,17 +59,7 @@ public class HorseAdditionWindow extends Window{
                     JOptionPane.showMessageDialog(window, "Please fill in all the fields", "Warning", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
-                Double confidence = 0.0;
-                try {
-                    confidence = Double.parseDouble(horseConfidenceField.getText());
-                } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(window, "Confidence should be a number between 0 and 1!", "Warning", JOptionPane.WARNING_MESSAGE);
-                    return;
-                }
-                if(confidence < 0.1 || confidence > 1) {
-                    JOptionPane.showMessageDialog(window, "Confidence should be a number between 0.1 and 1!", "Warning", JOptionPane.WARNING_MESSAGE);
-                    return;
-                }
+                Double confidence = horseConfidenceSlider.getValue()/100.0;
                 if(race.getPlayer().getUnlockedBreeds().contains(Breed.valueOf(horseBreedField.getSelectedItem().toString())) == false) {
                     JOptionPane.showMessageDialog(window, "You have not unlocked this breed!", "Warning", JOptionPane.WARNING_MESSAGE);
                     return;
@@ -87,7 +90,7 @@ public class HorseAdditionWindow extends Window{
         window.add(horseNameLabel);
         window.add(horseNameField);
         window.add(horseConfidenceLabel);
-        window.add(horseConfidenceField);
+        window.add(horseConfidenceSlider);
         window.add(horseBreedLabel);
         window.add(horseBreedField);
         window.add(addButton);
