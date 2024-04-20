@@ -188,6 +188,18 @@ public class Race
             return false;
         }
     }
+
+    public void calculateOdds(){
+        double sum = 0.0;
+
+        for(Horse horse : horses){
+            sum += horse.getConfidence()+(double)(horse.getSpeed()+horse.getRacesWon())/10.0;
+        }
+
+        for(Horse horse : horses){
+            horse.setChanceOfWinning(((horse.getConfidence()+(double)(horse.getSpeed()+horse.getRacesWon())/10.0)/sum*100.0));
+        }
+    }
     
     // /***
     //  * Print the race on the terminal

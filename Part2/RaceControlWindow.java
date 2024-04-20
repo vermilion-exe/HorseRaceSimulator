@@ -14,6 +14,8 @@ public class RaceControlWindow extends Window{
 
     public RaceControlWindow(Race race) {
         super("Race Control");
+
+        window.setSize(1050, 800);
         
         JLabel raceLengthLabel = new JLabel("Race track length: "+race.getRaceLength());
         raceLengthLabel.setBounds(30, 30, 150, 30);
@@ -45,9 +47,9 @@ public class RaceControlWindow extends Window{
         });
 
         JButton backButton = new JButton("Back");
-        backButton.setBounds(190, 500, 200, 30);
-        JButton startRaceButton = new JButton("Start Race!");
-        startRaceButton.setBounds(410, 500, 200, 30);
+        backButton.setBounds(290, 650, 200, 30);
+        JButton startRaceButton = new JButton("Start race!");
+        startRaceButton.setBounds(510, 650, 200, 30);
 
         Image shopImage = null;
         try {
@@ -56,7 +58,7 @@ public class RaceControlWindow extends Window{
             e.printStackTrace();
         }
         JButton shopButton = new JButton(new ImageIcon(shopImage.getScaledInstance(100, 100, Image.SCALE_DEFAULT)));
-        shopButton.setBounds(650, 450, 100, 100);
+        shopButton.setBounds(750, 600, 100, 100);
         shopButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 window.dispose();
@@ -65,12 +67,13 @@ public class RaceControlWindow extends Window{
             }
         });
 
+        race.calculateOdds();
 
-        int horseY = 150;
+        int horseY = 200;
         int horseX = 30;
         for(int i = 0; i<race.getHorses().size(); i++) {
             if(i%5 == 0 && i != 0) {
-                horseY += 150;
+                horseY += 200;
                 horseX = 30;
             }
             Image img = null;
@@ -88,11 +91,15 @@ public class RaceControlWindow extends Window{
                 horseInfoWindow.setVisible(true);
             });
             JLabel horseNameLabel = new JLabel(race.getHorses().get(i).getName());
+            double chanceOfWinning = race.getHorses().get(i).getChanceOfWinning();
+            JLabel horseChanceLabel = new JLabel("Chance of winning: " + String.format("%.2f", chanceOfWinning)+"%");
             horse.setBounds(horseX, horseY, 100, 100);
             horseNameLabel.setBounds(horseX, horseY+100, 100, 30);
-            horseX += 155;
+            horseChanceLabel.setBounds(horseX, horseY+130, 200, 30);
+            horseX += 200;
             window.add(horse);
             window.add(horseNameLabel);
+            window.add(horseChanceLabel);
         }
 
         raceLengthSlider.addChangeListener(new ChangeListener() {
@@ -114,7 +121,7 @@ public class RaceControlWindow extends Window{
         startRaceButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
                 window.dispose();
-                RaceWindow raceWindow = new RaceWindow(race);
+                RaceWindow bettingWindow = new RaceWindow(race);
             }
         });
 

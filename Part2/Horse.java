@@ -17,6 +17,7 @@ public class Horse
     private Breed breed;
     private int racesWon;
     private int speed;
+    private double chanceOfWinning;
       
     //Constructor of class Horse
     /**
@@ -95,6 +96,14 @@ public class Horse
     public double getConfidence()
     {
         return confidence;
+    }
+
+    public double getChanceOfWinning(){
+        return chanceOfWinning;
+    }
+
+    public void setChanceOfWinning(double chanceOfWinning){
+        this.chanceOfWinning = chanceOfWinning;
     }
     
     public int getDistanceTravelled()
