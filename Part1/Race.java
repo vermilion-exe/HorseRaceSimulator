@@ -3,6 +3,7 @@ package Part1;
 import java.util.concurrent.TimeUnit;
 import java.lang.Math;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 /**
  * A three-horse race, each horse running in its own lane
@@ -30,33 +31,26 @@ public class Race
 
         if(distance < 0)
         {
-            System.out.println("Distance cannot be negative");
-            System.out.println("Race length set to 0");
-            raceLength = 0;
+            boolean isValid = false;
+            while(!isValid)
+            {
+                System.out.println("Distance cannot be negative");
+                System.out.println("Please enter a positive distance");
+                try {
+                    distance = Integer.parseInt(System.console().readLine());
+                    if(distance > 0)
+                    {
+                        isValid = true;
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid input");
+                }
+            }
         }
-        else {
         raceLength = distance;
-        }
         lane1Horse = null;
         lane2Horse = null;
         lane3Horse = null;
-    }
-
-    /**
-     * Sets the length of the racetrack to a given distance
-     * 
-     * @param distance the length of the racetrack (in metres/yards...)
-     */
-    public void setRaceLength(int distance)
-    {
-        if(distance < 0)
-        {
-            System.out.println("Distance cannot be negative");
-            System.out.println("Race length wasn't changed");
-        }
-        else {
-            raceLength = distance;
-        }
     }
 
     /**
@@ -69,7 +63,7 @@ public class Race
     {
         if(theHorse == null)
         {
-            System.out.println("The horse is not defined");
+            System.out.println("The horse on lane "+laneNumber+" is not defined");
             return;
         }
         if (laneNumber == 1)
@@ -249,10 +243,9 @@ public class Race
         //else print the horse's symbol
         if(theHorse.hasFallen())
         {
-            //fix
-            String fallSign = "\u263A";
-            byte[] bytes = fallSign.getBytes(Charset.forName("UTF-16"));
-            String utf8EncodedString = new String(bytes, Charset.forName("UTF-16"));
+            String fallSign = "\u274c"; // this is the unicode for the cross mark
+            byte[] bytes = fallSign.getBytes(StandardCharsets.UTF_8);
+            String utf8EncodedString = new String(bytes, StandardCharsets.UTF_8);
             System.out.print(utf8EncodedString);
         }
         else
@@ -265,7 +258,7 @@ public class Race
         
         //print the | for the end of the track
         System.out.print('|');
-System.out.print(" " + theHorse.getName() + " (Current confidence " + theHorse.getConfidence() + ")");
+        System.out.print(" " + theHorse.getName() + " (Current confidence " + String.format("%.1f", theHorse.getConfidence()) + ")");
     }
         
     
