@@ -200,6 +200,25 @@ public class Race
             horse.setChanceOfWinning(((horse.getConfidence()+(double)(horse.getSpeed()+horse.getRacesWon())/10.0)/sum*100.0));
         }
     }
+
+    public int calculateProfit(){
+        int totalProfit = 0;
+
+        for(Horse horse : horses){
+            if(horse.getDistanceTravelled() >= raceLength){
+                int gain = horse.getBet()*12;
+                if(gain%10!=0){
+                    gain = gain + 10 - gain%10;
+                }
+                gain = gain/10;
+                player.setMoney(player.getMoney() + gain);
+                totalProfit += gain-horse.getBet();
+            }
+            horse.setBet(0);
+        }
+
+        return totalProfit;
+    }
     
     // /***
     //  * Print the race on the terminal

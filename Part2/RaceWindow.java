@@ -114,7 +114,9 @@ public class RaceWindow extends Window {
                         }
                         horses[i].setIcon(new ImageIcon(horseIcon));
                     }
+                    int totalProfit = race.calculateProfit();
                     JOptionPane.showMessageDialog(window, horse.getName()+" won!", "Message", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(window, "You have earned $"+totalProfit+"!"+"\n You now own $"+race.getPlayer().getMoney(), "Message", JOptionPane.INFORMATION_MESSAGE);
                     break;
                 }
             }
