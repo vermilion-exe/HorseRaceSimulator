@@ -17,6 +17,7 @@ public class Horse
     private Breed breed;
     private int racesWon;
     private int speed;
+    private int bet;
     private double chanceOfWinning;
       
     //Constructor of class Horse
@@ -104,6 +105,14 @@ public class Horse
 
     public void setChanceOfWinning(double chanceOfWinning){
         this.chanceOfWinning = chanceOfWinning;
+    }
+
+    public int getBet(){
+        return bet;
+    }
+
+    public void setBet(int bet){
+        this.bet = bet;
     }
     
     public int getDistanceTravelled()
