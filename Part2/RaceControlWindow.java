@@ -93,13 +93,16 @@ public class RaceControlWindow extends Window{
             JLabel horseNameLabel = new JLabel(race.getHorses().get(i).getName());
             double chanceOfWinning = race.getHorses().get(i).getChanceOfWinning();
             JLabel horseChanceLabel = new JLabel("Chance of winning: " + String.format("%.2f", chanceOfWinning)+"%");
+            JLabel horseBetLabel = new JLabel("Current bet: $"+race.getHorses().get(i).getBet());
             horse.setBounds(horseX, horseY, 100, 100);
             horseNameLabel.setBounds(horseX, horseY+100, 100, 30);
             horseChanceLabel.setBounds(horseX, horseY+130, 200, 30);
+            horseBetLabel.setBounds(horseX, horseY+160, 200, 30);
             horseX += 200;
             window.add(horse);
             window.add(horseNameLabel);
             window.add(horseChanceLabel);
+            window.add(horseBetLabel);
         }
 
         raceLengthSlider.addChangeListener(new ChangeListener() {
