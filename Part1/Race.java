@@ -2,7 +2,6 @@ package Part1;
 
 import java.util.concurrent.TimeUnit;
 import java.lang.Math;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 /**
@@ -95,6 +94,11 @@ public class Race
         if(lane1Horse == null || lane2Horse == null || lane3Horse == null)
         {
             System.out.println("Not all horses are ready!");
+            return;
+        }
+        else if(lane1Horse==lane2Horse || lane1Horse==lane3Horse || lane2Horse==lane3Horse)
+        {
+            System.out.println("One horse cannot be on multiple lanes!");
             return;
         }
 
