@@ -57,7 +57,7 @@ public class HorseInfoWindow extends Window{
         betSlider.setPaintTrack(true);
         betSlider.setPaintTicks(true);
         betSlider.setPaintLabels(true);
-        betSlider.setMajorTickSpacing(100);
+        betSlider.setMajorTickSpacing(50);
         betSlider.setLabelTable(new Hashtable<Integer, JLabel>() {{
             put(0, new JLabel("$0")); 
             put(race.getPlayer().getMoney()/4, new JLabel("$"+race.getPlayer().getMoney()/4));            
