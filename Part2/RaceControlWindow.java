@@ -38,8 +38,19 @@ public class RaceControlWindow extends Window{
             }
         });
 
+        JButton previousRoundsButton = new JButton("Previous rounds");
+        previousRoundsButton.setBounds(660, 50, 180, 50);
+        previousRoundsButton.setEnabled(race.getRounds().size() > 0);
+        previousRoundsButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                window.dispose();
+                PreviousRoundsWindow previousRoundsWindow = new PreviousRoundsWindow(race);
+                previousRoundsWindow.setVisible(true);
+            }
+        });
+
         JButton saveButton = new JButton("Save");
-        saveButton.setBounds(650, 30, 100, 100);
+        saveButton.setBounds(900, 30, 100, 100);
         saveButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 GameSaveController.saveGame(race);
@@ -47,9 +58,9 @@ public class RaceControlWindow extends Window{
         });
 
         JButton backButton = new JButton("Back");
-        backButton.setBounds(290, 650, 200, 30);
+        backButton.setBounds(290, 680, 200, 30);
         JButton startRaceButton = new JButton("Start race!");
-        startRaceButton.setBounds(510, 650, 200, 30);
+        startRaceButton.setBounds(510, 680, 200, 30);
 
         Image shopImage = null;
         try {
@@ -58,7 +69,7 @@ public class RaceControlWindow extends Window{
             e.printStackTrace();
         }
         JButton shopButton = new JButton(new ImageIcon(shopImage.getScaledInstance(100, 100, Image.SCALE_DEFAULT)));
-        shopButton.setBounds(750, 600, 100, 100);
+        shopButton.setBounds(750, 630, 100, 100);
         shopButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 window.dispose();
@@ -124,7 +135,7 @@ public class RaceControlWindow extends Window{
         startRaceButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
                 window.dispose();
-                RaceWindow bettingWindow = new RaceWindow(race);
+                RaceWindow raceWindow = new RaceWindow(race);
             }
         });
 
@@ -133,6 +144,7 @@ public class RaceControlWindow extends Window{
         window.add(laneTypeLabel);
         window.add(laneTypeField);
         window.add(shopButton);
+        window.add(previousRoundsButton);
         window.add(saveButton);
         window.add(backButton);
         window.add(startRaceButton);
