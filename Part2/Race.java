@@ -98,7 +98,7 @@ public class Race
         rounds.add(round);
     }
 
-    public void finishRound(int totalProfit, Map<Horse, Double> initialHorseConfidence){
+    public int finishRound(Map<Horse, Double> initialHorseConfidence){
         Map<Horse, Integer> horseBets = new HashMap<>();
         
         getHorses().forEach(h -> {
@@ -106,6 +106,7 @@ public class Race
             horse.setConfidence(initialHorseConfidence.get(h));
             horseBets.put(horse, h.getBet());
         });
+        int totalProfit = calculateProfit();
         Round round = new Round(getRounds().size()+1, getLaneType(), getRaceLength(),
                 horseBets, totalProfit);
         Optional<Horse> winner = round.getHorseBets().keySet().stream().filter(x->raceWonBy(x)).findFirst();
@@ -118,6 +119,8 @@ public class Race
         }
 
         addRound(round);
+
+        return totalProfit;
     }
 
     public boolean getRaceFinished(){
@@ -237,7 +240,7 @@ public class Race
         }
     }
 
-    public int calculateProfit(){
+    private int calculateProfit(){
         int totalProfit = 0;
 
         for(Horse horse : horses){
