@@ -185,7 +185,11 @@ public class Horse
         newHorse.setBet(horse.getBet());
         newHorse.setChanceOfWinning(horse.getChanceOfWinning());
         newHorse.setRacesWon(horse.getRacesWon());
-        
+        newHorse.setDistanceTravelled(horse.getDistanceTravelled());
+        if(horse.hasFallen()){
+            newHorse.fall();
+        }
+
         return newHorse;
     }
     
