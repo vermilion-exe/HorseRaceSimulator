@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 import java.lang.Math;
 import java.nio.charset.Charset;
@@ -44,6 +45,7 @@ public class Race
         }
         this.player = player;
         horses = new ArrayList<Horse>();
+        rounds = new ArrayList<Round>();
         laneType = Lane.Dirt;
     }
 
@@ -106,8 +108,15 @@ public class Race
         });
         Round round = new Round(getRounds().size()+1, getLaneType(), getRaceLength(),
                 horseBets, totalProfit);
-        round.setWinner(round.getHorseBets().keySet().stream().filter(x->raceWonBy(x)).findFirst().get());
-        round.setRaceFinished(round.getWinner()!=null);
+        Optional<Horse> winner = round.getHorseBets().keySet().stream().filter(x->raceWonBy(x)).findFirst();
+        if(winner.isPresent()){
+            round.setWinner(winner.get());
+            round.setRaceFinished(true);
+        }
+        else{
+            round.setRaceFinished(false);
+        }
+
         addRound(round);
     }
 
