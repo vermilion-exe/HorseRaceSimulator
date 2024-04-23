@@ -179,5 +179,14 @@ public class Horse
             setConfidence(getConfidence() + 0.1);
         }
     }
+
+    public static Horse copyOf(Horse horse){
+        Horse newHorse = new Horse(horse.getName(), horse.getConfidence(), horse.getBreed());
+        newHorse.setBet(horse.getBet());
+        newHorse.setChanceOfWinning(horse.getChanceOfWinning());
+        newHorse.setRacesWon(horse.getRacesWon());
+        
+        return newHorse;
+    }
     
 }
