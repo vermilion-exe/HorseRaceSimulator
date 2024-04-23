@@ -98,7 +98,7 @@ public class RaceWindow extends Window {
             if(race.allHorsesFallen())
             {
                 race.setRaceFinished(true);
-                race.finishRound(0, horseConfidenceMap);
+                race.finishRound(horseConfidenceMap);
                 JOptionPane.showMessageDialog(window, "All horses have fallen. No one won.", "Message", JOptionPane.INFORMATION_MESSAGE);
             }
 
@@ -118,8 +118,7 @@ public class RaceWindow extends Window {
                         }
                         horses[i].setIcon(new ImageIcon(horseIcon));
                     }
-                    int totalProfit = race.calculateProfit();
-                    race.finishRound(totalProfit, horseConfidenceMap);
+                    int totalProfit = race.finishRound(horseConfidenceMap);
                     JOptionPane.showMessageDialog(window, horse.getName()+" won!", "Message", JOptionPane.INFORMATION_MESSAGE);
                     JOptionPane.showMessageDialog(window, "You have earned $"+totalProfit+"!"+"\n You now own $"+race.getPlayer().getMoney(), "Message", JOptionPane.INFORMATION_MESSAGE);
                     break;
