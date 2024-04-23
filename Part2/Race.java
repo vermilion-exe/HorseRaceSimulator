@@ -1,6 +1,9 @@
 package Part2;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.lang.Math;
 import java.nio.charset.Charset;
@@ -18,6 +21,7 @@ public class Race
     private ArrayList<Horse> horses;
     private Player player;
     private Lane laneType;
+    private List<Round> rounds;
     private boolean raceFinished = false;
     /**
      * Constructor for objects of class Race
@@ -82,6 +86,29 @@ public class Race
 
     public void setLaneType(Lane lane){
         laneType = lane;
+    }
+
+    public List<Round> getRounds(){
+        return rounds;
+    }
+
+    public void addRound(Round round){
+        rounds.add(round);
+    }
+
+    public void finishRound(int totalProfit, Map<Horse, Double> initialHorseConfidence){
+        Map<Horse, Integer> horseBets = new HashMap<>();
+        
+        getHorses().forEach(h -> {
+            Horse horse = Horse.copyOf(h);
+            horse.setConfidence(initialHorseConfidence.get(h));
+            horseBets.put(horse, h.getBet());
+        });
+        Round round = new Round(getRounds().size()+1, getLaneType(), getRaceLength(),
+                horseBets, totalProfit);
+        round.setWinner(round.getHorseBets().keySet().stream().filter(x->raceWonBy(x)).findFirst().get());
+        round.setRaceFinished(round.getWinner()!=null);
+        addRound(round);
     }
 
     public boolean getRaceFinished(){

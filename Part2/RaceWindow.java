@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -23,7 +25,6 @@ public class RaceWindow extends Window {
             RaceControlWindow raceControlWindow = new RaceControlWindow(race);
             raceControlWindow.setVisible(true);
         });
-
 
         JLabel[] horses = new JLabel[race.getHorses().size()]; 
 
@@ -84,8 +85,10 @@ public class RaceWindow extends Window {
     }
 
     private void startRace(Race race, JLabel[] horses, JButton backButton){
+        Map<Horse, Double> horseConfidenceMap = new HashMap<>();
         for(Horse horse : race.getHorses())
         {
+            horseConfidenceMap.put(horse, horse.getConfidence());
             horse.goBackToStart();
         }
 
@@ -95,6 +98,7 @@ public class RaceWindow extends Window {
             if(race.allHorsesFallen())
             {
                 race.setRaceFinished(true);
+                race.finishRound(0, horseConfidenceMap);
                 JOptionPane.showMessageDialog(window, "All horses have fallen. No one won.", "Message", JOptionPane.INFORMATION_MESSAGE);
             }
 
@@ -115,6 +119,7 @@ public class RaceWindow extends Window {
                         horses[i].setIcon(new ImageIcon(horseIcon));
                     }
                     int totalProfit = race.calculateProfit();
+                    race.finishRound(totalProfit, horseConfidenceMap);
                     JOptionPane.showMessageDialog(window, horse.getName()+" won!", "Message", JOptionPane.INFORMATION_MESSAGE);
                     JOptionPane.showMessageDialog(window, "You have earned $"+totalProfit+"!"+"\n You now own $"+race.getPlayer().getMoney(), "Message", JOptionPane.INFORMATION_MESSAGE);
                     break;
