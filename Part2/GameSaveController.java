@@ -6,7 +6,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class GameSaveController {
 
@@ -35,10 +37,24 @@ public class GameSaveController {
 
         printWriter.println("Horses:");
         for(Horse horse : race.getHorses()) {
-            printWriter.println(horse.getName());
-            printWriter.println(horse.getBreed());
-            printWriter.println(horse.getConfidence());
-            printWriter.println(horse.getRacesWon());
+            printWriter.println(horse.getName()+" "+horse.getBreed()+" "
+            +String.format("%.2f", horse.getConfidence())+" "+horse.getRacesWon()
+            +" "+horse.getBet());
+        }
+
+        printWriter.println("");
+
+        printWriter.println("Rounds:");
+        for(Round round : race.getRounds()){
+            printWriter.println(round.getRoundNumber()+" "+round.getRaceLength()+" "+round.getLaneType()+" "+round.getTotalProfit()+" "+round.wasRaceFinished());
+            for(Horse horse : round.getHorseBets().keySet()) {
+                printWriter.println(horse.getName()+" "+horse.getBreed()+" "
+                +String.format("%.2f", horse.getConfidence())
+                +" "+horse.getRacesWon()+" "+horse.getChanceOfWinning()+" "+horse.getDistanceTravelled()
+                +" "+horse.hasFallen()+" "+round.getHorseBets().get(horse)
+                +(horse==round.getWinner()?" 1":" 0"));
+            }
+            printWriter.println("");
         }
 
         printWriter.close();
@@ -70,6 +86,7 @@ public class GameSaveController {
 
             bufferedReader.readLine();
 
+            // Load player
             Player player = new Player();
             int money = Integer.parseInt(bufferedReader.readLine());
             player.setMoney(money);
@@ -82,15 +99,67 @@ public class GameSaveController {
 
             bufferedReader.readLine();
 
-            String name;
-            while((name=bufferedReader.readLine())!= null) {
-                Breed breed = Breed.valueOf(bufferedReader.readLine());
-                double confidence = Double.parseDouble(bufferedReader.readLine());
-                int racesWon = Integer.parseInt(bufferedReader.readLine());
+            // Load horses
+            String horseData;
+            while(!(horseData=bufferedReader.readLine()).isBlank()) {
+                String[] horseDataArray = horseData.split(" ");
+                String name = horseDataArray[0];
+                Breed breed = Breed.valueOf(horseDataArray[1]);
+                double confidence = Double.parseDouble(horseDataArray[2]);
+                confidence = Math.round(confidence * 10.0) / 10.0;
+                int racesWon = Integer.parseInt(horseDataArray[3]);
+                int bet = Integer.parseInt(horseDataArray[4]);
                 Horse horse = new Horse(name, confidence, breed);
                 horse.setRacesWon(racesWon);
+                horse.setBet(bet);
                 race.addHorse(horse);
             }
+
+            bufferedReader.readLine();
+
+            // Load rounds
+            String roundData;
+            while((roundData=bufferedReader.readLine()) != null) {
+                String[] roundDataArray = roundData.split(" ");
+                int roundNumber = Integer.parseInt(roundDataArray[0]);
+                int roundRaceLength = Integer.parseInt(roundDataArray[1]);
+                Lane roundLaneType = Lane.valueOf(roundDataArray[2]);
+                int totalProfit = Integer.parseInt(roundDataArray[3]);
+                boolean raceFinished = Boolean.parseBoolean(roundDataArray[4]);
+
+                String pastHorseData;
+                Map<Horse, Integer> horseBets = new HashMap<>();
+                Horse winner = null;
+                while(!(pastHorseData=bufferedReader.readLine()).isBlank()) {
+                    String[] horseDataArray = pastHorseData.split(" ");
+                    String horseName = horseDataArray[0];
+                    Breed horseBreed = Breed.valueOf(horseDataArray[1]);
+                    double horseConfidence = Double.parseDouble(horseDataArray[2]);
+                    int horseRacesWon = Integer.parseInt(horseDataArray[3]);
+                    double horseChanceOfWinning = Double.parseDouble(horseDataArray[4]);
+                    int horseDistanceTravelled = Integer.parseInt(horseDataArray[5]);
+                    boolean horseHasFallen = Boolean.parseBoolean(horseDataArray[6]);
+                    int horseBet = Integer.parseInt(horseDataArray[7]);
+                    boolean horseWon = horseDataArray[8].equals("1");
+                    Horse horse = new Horse(horseName, horseConfidence, horseBreed);
+                    horse.setRacesWon(horseRacesWon);
+                    horse.setChanceOfWinning(horseChanceOfWinning);
+                    horse.setDistanceTravelled(horseDistanceTravelled);
+                    if(horseHasFallen){
+                        horse.fall();
+                    }
+                    horseBets.put(horse, horseBet);
+                    if(horseWon) {
+                        winner = horse;
+                    }
+                }
+
+                Round round = new Round(roundNumber, roundLaneType, roundRaceLength, horseBets, totalProfit);
+                round.setWinner(winner);
+                round.setRaceFinished(raceFinished);
+                race.addRound(round);
+            }
+
             bufferedReader.close();
         }
         catch(Exception e) {
