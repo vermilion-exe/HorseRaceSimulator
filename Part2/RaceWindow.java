@@ -95,13 +95,6 @@ public class RaceWindow extends Window {
         Timer timer = new Timer(100, null);
 
         timer.addActionListener(e -> {
-            if(race.allHorsesFallen())
-            {
-                race.setRaceFinished(true);
-                race.finishRound(horseConfidenceMap);
-                JOptionPane.showMessageDialog(window, "All horses have fallen. No one won.", "Message", JOptionPane.INFORMATION_MESSAGE);
-            }
-
             for(Horse horse : race.getHorses())
             {
                 if(race.raceWonBy(horse))
@@ -123,6 +116,13 @@ public class RaceWindow extends Window {
                     JOptionPane.showMessageDialog(window, "You have earned $"+totalProfit+"!"+"\n You now own $"+race.getPlayer().getMoney(), "Message", JOptionPane.INFORMATION_MESSAGE);
                     break;
                 }
+            }
+            
+            if(race.allHorsesFallen()&&!race.getRaceFinished())
+            {
+                race.setRaceFinished(true);
+                race.finishRound(horseConfidenceMap);
+                JOptionPane.showMessageDialog(window, "All horses have fallen. No one won.", "Message", JOptionPane.INFORMATION_MESSAGE);
             }
 
             if(race.getRaceFinished()){
