@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Hashtable;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -21,16 +22,25 @@ public class RaceControlWindow extends Window{
         raceLengthLabel.setBounds(30, 30, 150, 30);
         JSlider raceLengthSlider = new JSlider(5, 30, 5);
         raceLengthSlider.setBounds(170, 30, 200, 50);
+        raceLengthSlider.setLabelTable(new Hashtable<Integer, JLabel>() {{
+            put(5, new JLabel("5")); 
+            put(10, new JLabel("10"));
+            put(15, new JLabel("15"));
+            put(20, new JLabel("20"));
+            put(25, new JLabel("25"));
+            put(30, new JLabel("30"));
+        }});
         raceLengthSlider.setPaintTrack(true);
         raceLengthSlider.setPaintTicks(true);
         raceLengthSlider.setPaintLabels(true);
-        raceLengthSlider.setMajorTickSpacing(50);
-        raceLengthSlider.setMinorTickSpacing(5);
+        raceLengthSlider.setMajorTickSpacing(5);
+        raceLengthSlider.setMinorTickSpacing(1);
         raceLengthSlider.setValue(race.getRaceLength());
 
         JLabel laneTypeLabel = new JLabel("Lane type:");
         laneTypeLabel.setBounds(410, 20, 200, 30);
         JComboBox laneTypeField = new JComboBox(new String[]{"Dirt", "Grass"});
+        laneTypeField.setSelectedItem(race.getLaneType().toString());
         laneTypeField.setBounds(400, 50, 200, 30);
         laneTypeField.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
