@@ -1,13 +1,13 @@
 package Part2;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
-import java.util.ArrayList;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class GameSaveController {
@@ -16,6 +16,7 @@ public class GameSaveController {
         // Save the game
         FileWriter fileWriter = null;
         try{
+            validateSaveFile();
             fileWriter = new FileWriter("Part2/save.txt");
         }
         catch(Exception e) {
@@ -178,6 +179,19 @@ public class GameSaveController {
         }
         catch(Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public static void validateSaveFile(){
+        try{
+            Path path = Paths.get("Part2/save.txt");
+            if (!Files.exists(path)) {
+                Files.createFile(path);
+            }
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        
         }
     }
     

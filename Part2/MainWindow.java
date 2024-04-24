@@ -29,6 +29,7 @@ public class MainWindow extends Window {
         JButton continueButton = new JButton("Continue");
         continueButton.setBounds(190, 150, 200, 30);
         try {
+            GameSaveController.validateSaveFile();
             BufferedReader reader = new BufferedReader(new FileReader("Part2/save.txt"));
             if(reader.readLine() == null){
                 continueButton.setEnabled(false);
