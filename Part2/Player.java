@@ -1,17 +1,17 @@
 package Part2;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Player {
 
     private int money;
-    private List<Breed> unlockedBreeds;
+    private Set<Breed> unlockedBreeds;
 
     public Player() {
         this.money = 5000; //default money
 
-        this.unlockedBreeds = new ArrayList<Breed>() {{
+        this.unlockedBreeds = new HashSet<Breed>() {{
             add(Breed.Eriskay);
             add(Breed.Haflinger);
             add(Breed.Aegidienberger);
@@ -26,7 +26,7 @@ public class Player {
         this.money = money;
     }
 
-    public List<Breed> getUnlockedBreeds() {
+    public Set<Breed> getUnlockedBreeds() {
         return unlockedBreeds;
     }
 
