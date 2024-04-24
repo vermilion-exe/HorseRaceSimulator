@@ -59,7 +59,7 @@ public class HorseAdditionWindow extends Window{
                     JOptionPane.showMessageDialog(window, "Please fill in all the fields", "Warning", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
-                Double confidence = horseConfidenceSlider.getValue()/100.0;
+                Double confidence = Math.round(horseConfidenceSlider.getValue()/10.0)/10.0;
                 if(race.getPlayer().getUnlockedBreeds().contains(Breed.valueOf(horseBreedField.getSelectedItem().toString())) == false) {
                     JOptionPane.showMessageDialog(window, "You have not unlocked this breed!", "Warning", JOptionPane.WARNING_MESSAGE);
                     return;
