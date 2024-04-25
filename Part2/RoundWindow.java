@@ -14,7 +14,7 @@ public class RoundWindow extends Window {
     public RoundWindow(Race race, Round round) {
         super("Round #"+round.getRoundNumber());
 
-        int windowHeight = 220*(round.getHorseBets().keySet().size()/4)+460;
+        int windowHeight = 200*((round.getHorseBets().keySet().size()-1)/4)+500;
         window.setSize(1350, windowHeight);
         window.setLocation(0, 0);
         

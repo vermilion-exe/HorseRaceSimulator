@@ -17,6 +17,7 @@ public class RaceControlWindow extends Window{
         super("Race Control");
 
         window.setSize(1050, 800);
+        window.setLocation(0,0);
         
         JLabel raceLengthLabel = new JLabel("Race track length: "+race.getRaceLength());
         raceLengthLabel.setBounds(30, 30, 150, 30);
