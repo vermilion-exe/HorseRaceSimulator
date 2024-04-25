@@ -50,6 +50,9 @@ public class HorseAdditionWindow extends Window{
         JButton continueButton = new JButton("Continue");
         continueButton.setBounds(50, 380, 200, 30);
 
+        JButton backButton = new JButton("Back");
+        backButton.setBounds(50, 430, 200, 30);
+
         JLabel horseLabel = new JLabel("Horses:");
         horseLabel.setBounds(500, 30, 200, 30);
         
@@ -86,9 +89,20 @@ public class HorseAdditionWindow extends Window{
                     JOptionPane.showMessageDialog(window, "You need at least 2 horses to start the race!", "Warning", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
-                window.setVisible(false);
+                window.dispose();
                 RaceControlWindow raceControlWindow = new RaceControlWindow(race);
                 raceControlWindow.setVisible(true);
+            }
+        });
+
+        backButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                int confirm = JOptionPane.showConfirmDialog(window, "Are you sure? All unsaved progress will be lost.", "Confirmation", JOptionPane.YES_NO_OPTION);
+                if (confirm == JOptionPane.YES_OPTION) {
+                    window.dispose();
+                    MainWindow mainWindow = new MainWindow();
+                    mainWindow.setVisible(true);
+                }
             }
         });
 
@@ -100,6 +114,7 @@ public class HorseAdditionWindow extends Window{
         window.add(horseBreedField);
         window.add(addButton);
         window.add(continueButton);
+        window.add(backButton);
         window.add(horseLabel);
 
     }

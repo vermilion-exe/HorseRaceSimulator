@@ -6,7 +6,6 @@ import java.io.IOException;
 
 import javax.swing.*;
 
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.*;
 
@@ -14,13 +13,6 @@ public class MainWindow extends Window {
 
     public MainWindow(){
         super("Horse Race Simulator");
-    }
-
-    public void menu() {
-        //Creating the Frame
-        // JFrame menu = new JFrame("Menu Frame");
-        // menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        // menu.setSize(400, 400);
 
         JLabel title = new JLabel("Horse Races Simulator");
         title.setFont(new Font("Serif", Font.PLAIN, 50));
@@ -54,26 +46,35 @@ public class MainWindow extends Window {
             }
         });
 
+        JButton exitButton = new JButton("Exit");
+        exitButton.setBounds(300, 200, 200, 30);
+        exitButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+
         window.add(title);
         window.add(continueButton);
         window.add(newGameButton);
+        window.add(exitButton);
+    }
 
-        //Adding Components to the frame.
-        window.setVisible(true);
-     }
 
-     public void game(boolean isNewGame){
+    public void game(boolean isNewGame){
         if(isNewGame){
             GameSaveController.deleteGame();
         }
         Race race = GameSaveController.loadGame();
         if(race.getHorses().size()==10){
+            window.dispose();
             RaceControlWindow raceControlWindow = new RaceControlWindow(race);
             raceControlWindow.setVisible(true);
         }
         else{
+            window.dispose();
             HorseAdditionWindow horseAdditionWindow = new HorseAdditionWindow(race);
             horseAdditionWindow.setVisible(true);
         }
-     }
+    }
 }
