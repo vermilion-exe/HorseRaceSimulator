@@ -131,17 +131,29 @@ public class RaceWindow extends Window {
             else{
                 race.iterateRace();
                 for(int i = 0; i < horses.length; i++) {
-                    int xPosition = (int)getPosition(race.getHorses().get(i).getDistanceTravelled(), 0, race.getRaceLength(), 0, 730);
-                    xPosition = xPosition > 730 ? 730 : xPosition;
-                    horses[i].setBounds(xPosition, horses[i].getY(), 60, 60);
-                    BufferedImage horseIcon = null;
-                    try{
-                        String imageLink = race.getHorses().get(i).getImageLinks()[(horses[i].getX()/50)%4+1];
-                        horseIcon = ImageIO.read(getClass().getResource(imageLink));
+                    if(race.getHorses().get(i).hasFallen()){
+                        BufferedImage horseFallIcon = null;
+                        try{
+                            String imageLink = race.getHorses().get(i).getImageLinks()[5];
+                            horseFallIcon = ImageIO.read(getClass().getResource(imageLink));
+                        }
+                        catch (Exception exc) {
+                        }
+                        horses[i].setIcon(new ImageIcon(horseFallIcon));
                     }
-                    catch (Exception exc) {
+                    else{
+                        int xPosition = (int)getPosition(race.getHorses().get(i).getDistanceTravelled(), 0, race.getRaceLength(), 0, 730);
+                        xPosition = xPosition > 730 ? 730 : xPosition;
+                        horses[i].setBounds(xPosition, horses[i].getY(), 60, 60);
+                        BufferedImage horseIcon = null;
+                        try{
+                            String imageLink = race.getHorses().get(i).getImageLinks()[(horses[i].getX()/50)%4+1];
+                            horseIcon = ImageIO.read(getClass().getResource(imageLink));
+                        }
+                        catch (Exception exc) {
+                        }
+                        horses[i].setIcon(new ImageIcon(horseIcon));
                     }
-                    horses[i].setIcon(new ImageIcon(horseIcon));
                 }
             }
 

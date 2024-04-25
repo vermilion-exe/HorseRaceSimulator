@@ -28,8 +28,8 @@ public class Horse
     {
         name = horseName;
         breed = horseBreed;
-        imageLinks = new String[5];
-        for(int i  = 0; i<5; i++)
+        imageLinks = new String[6];
+        for(int i  = 0; i<6; i++)
         {
             imageLinks[i] = "resources/horse-sprites/" + horseBreed.toString() + "_" + i + ".png";
         }
