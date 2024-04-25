@@ -18,8 +18,7 @@ public class RaceWindow extends Window {
         int windowHeight = 60*race.getHorses().size()+150;
         window.setSize(800, windowHeight);
 
-        JButton backButton = new JButton("Back");
-        backButton.setBounds(300, 15, 200, 30);
+        DefaultButton backButton = new DefaultButton("Back", 300, 15);
         backButton.addActionListener(e -> {
             window.dispose();
             RaceControlWindow raceControlWindow = new RaceControlWindow(race);

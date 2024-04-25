@@ -18,8 +18,7 @@ public class MainWindow extends Window {
         title.setFont(new Font("Serif", Font.PLAIN, 50));
         title.setBounds(175, 30, 500, 70);
 
-        JButton continueButton = new JButton("Continue");
-        continueButton.setBounds(190, 150, 200, 30);
+        DefaultButton continueButton = new DefaultButton("Continue", 190, 150);
         try {
             GameSaveController.validateSaveFile();
             BufferedReader reader = new BufferedReader(new FileReader("Part2/save.txt"));
@@ -38,16 +37,14 @@ public class MainWindow extends Window {
             }
         });
 
-        JButton newGameButton = new JButton("New Game");
-        newGameButton.setBounds(410, 150, 200, 30);
+        DefaultButton newGameButton = new DefaultButton("New Game", 410, 150);
          newGameButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                game(true);
+                    game(true);
             }
         });
 
-        JButton exitButton = new JButton("Exit");
-        exitButton.setBounds(300, 200, 200, 30);
+        DefaultButton exitButton = new DefaultButton("Exit", 300, 200);
         exitButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);

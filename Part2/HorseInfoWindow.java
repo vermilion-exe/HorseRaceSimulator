@@ -1,6 +1,5 @@
 package Part2;
 
-import java.awt.Color;
 import java.awt.Image;
 
 import javax.imageio.ImageIO;
@@ -41,8 +40,7 @@ public class HorseInfoWindow extends Window{
         JLabel horseConfidence = new JLabel("Confidence: " + String.format("%.1f", horse.getConfidence()));
         horseConfidence.setBounds(350, 170, 200, 30);
 
-        JButton closeButton = new JButton("Close");
-        closeButton.setBounds(380, 320, 140, 30);
+        DefaultButton closeButton = new DefaultButton("Close", 380, 320, 140, 30);
         closeButton.addActionListener(e -> {
             window.dispose();
             RaceControlWindow raceWindow = new RaceControlWindow(race);
@@ -66,8 +64,7 @@ public class HorseInfoWindow extends Window{
             put(race.getPlayer().getMoney(), new JLabel("$"+race.getPlayer().getMoney()));
         }});
 
-        JButton betButton = new JButton("Bet");
-        betButton.setBounds(10, 280, 140, 30);
+        DefaultButton betButton = new DefaultButton("Bet", 10, 280, 140, 30);
         betButton.addActionListener(e -> {
             int bet = betSlider.getValue();
             if(bet == 0) {
@@ -89,8 +86,7 @@ public class HorseInfoWindow extends Window{
             }
         });
 
-        JButton removeBetButton = new JButton("Remove bet");
-        removeBetButton.setBounds(10, 320, 140, 30);
+        DefaultButton removeBetButton = new DefaultButton("Remove bet", 10, 320, 140, 30);
         removeBetButton.addActionListener(e -> {
             int bet = horse.getBet();
             race.getPlayer().setMoney(race.getPlayer().getMoney()+bet);
@@ -106,8 +102,7 @@ public class HorseInfoWindow extends Window{
             }});
         });
 
-        JButton deleteButton = new JButton("Delete");
-        deleteButton.setBounds(220, 320, 140, 30);
+        DefaultButton deleteButton = new DefaultButton("Delete", 220, 320, 140, 30);
         deleteButton.addActionListener(e -> {
             int confirm = JOptionPane.showConfirmDialog(window, "Are you sure you want to delete this horse?", "Confirmation", JOptionPane.YES_NO_OPTION);
             if (confirm == JOptionPane.YES_OPTION) {

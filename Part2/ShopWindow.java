@@ -31,8 +31,7 @@ public class ShopWindow extends Window {
         JLabel barn = new JLabel(new ImageIcon(barnImg));
         barn.setBounds(0, 0, 680, 270);
 
-        JButton backButton = new JButton("Back");
-        backButton.setBounds(290, 620, 100, 30);
+        DefaultButton backButton = new DefaultButton("Back", 290, 620, 100, 30);
         backButton.addActionListener( event -> {
             window.dispose();
             RaceControlWindow raceWindow = new RaceControlWindow(race);

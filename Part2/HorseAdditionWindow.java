@@ -44,14 +44,11 @@ public class HorseAdditionWindow extends Window{
         JComboBox horseBreedField = new JComboBox(new String[]{"Eriskay", "Haflinger", "Aegidienberger", "Connemara", "Andalusian", "Caspian", "Morgan", "Arabian"});
         horseBreedField.setBounds(50, 280, 200, 30);
 
-        JButton addButton = new JButton("Add Horse");
-        addButton.setBounds(50, 330, 200, 30);
+        DefaultButton addButton = new DefaultButton("Add Horse", 50, 330);
 
-        JButton continueButton = new JButton("Continue");
-        continueButton.setBounds(50, 380, 200, 30);
+        DefaultButton continueButton = new DefaultButton("Continue", 50, 380);
 
-        JButton backButton = new JButton("Back");
-        backButton.setBounds(50, 430, 200, 30);
+        DefaultButton backButton = new DefaultButton("Back", 50, 430);
 
         JLabel horseLabel = new JLabel("Horses:");
         horseLabel.setBounds(500, 30, 200, 30);

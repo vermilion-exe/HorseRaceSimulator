@@ -49,8 +49,7 @@ public class RaceControlWindow extends Window{
             }
         });
 
-        JButton previousRoundsButton = new JButton("Previous rounds");
-        previousRoundsButton.setBounds(660, 50, 180, 50);
+        DefaultButton previousRoundsButton = new DefaultButton("Previous rounds", 660, 50, 180, 50);
         previousRoundsButton.setEnabled(race.getRounds().size() > 0);
         previousRoundsButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -60,18 +59,15 @@ public class RaceControlWindow extends Window{
             }
         });
 
-        JButton saveButton = new JButton("Save");
-        saveButton.setBounds(900, 30, 100, 100);
+        DefaultButton saveButton = new DefaultButton("Save", 900, 30, 100, 100);
         saveButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 GameSaveController.saveGame(race);
             }
         });
 
-        JButton backButton = new JButton("Back");
-        backButton.setBounds(290, 680, 200, 30);
-        JButton startRaceButton = new JButton("Start race!");
-        startRaceButton.setBounds(510, 680, 200, 30);
+        DefaultButton backButton = new DefaultButton("Back", 290, 680);
+        DefaultButton startRaceButton = new DefaultButton("Start race!", 510, 680);
 
         Image shopImage = null;
         try {

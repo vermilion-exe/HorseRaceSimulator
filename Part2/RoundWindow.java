@@ -93,8 +93,7 @@ public class RoundWindow extends Window {
             window.add(horseBetLabel);
         }
 
-        JButton backButton = new JButton("Back");
-        backButton.setBounds(600, windowHeight-80, 200, 30);
+        DefaultButton backButton = new DefaultButton("Back", 600, windowHeight-80);
         backButton.addActionListener(e -> {
             window.dispose();
             PreviousRoundsWindow previousRoundsWindow = new PreviousRoundsWindow(race);

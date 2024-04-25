@@ -56,7 +56,7 @@ public class PreviousRoundsWindow extends Window {
         JScrollPane scrollPane = new JScrollPane(roundPanel);
         window.add(scrollPane);
 
-        JButton backButton = new JButton("Back");
+        DefaultButton backButton = new DefaultButton("Back");
         backButton.addActionListener(e -> {
             window.dispose();
             RaceControlWindow raceControlWindow = new RaceControlWindow(race);

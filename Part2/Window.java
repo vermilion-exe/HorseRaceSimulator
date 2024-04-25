@@ -15,7 +15,7 @@ public class Window {
         window.setResizable(false);
         window.setLocationRelativeTo(null);
         window.setLayout(null);
-        window.getContentPane().setBackground(Color.decode("#74add6"));
+        window.getContentPane().setBackground(Color.decode("#B8D8D8"));
     }
 
     public void setVisible(boolean visible) {
