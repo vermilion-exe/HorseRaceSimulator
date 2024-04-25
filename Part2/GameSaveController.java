@@ -194,5 +194,21 @@ public class GameSaveController {
         
         }
     }
-    
+
+    public static boolean hasData(){
+        try{
+            validateSaveFile();
+            BufferedReader reader = new BufferedReader(new FileReader("Part2/save.txt"));
+            if(reader.readLine() == null){
+                reader.close();
+                return false;
+            }
+            reader.close();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return true;
+    }
 }

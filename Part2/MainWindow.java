@@ -19,16 +19,8 @@ public class MainWindow extends Window {
         title.setBounds(175, 30, 500, 70);
 
         DefaultButton continueButton = new DefaultButton("Continue", 190, 150);
-        try {
-            GameSaveController.validateSaveFile();
-            BufferedReader reader = new BufferedReader(new FileReader("Part2/save.txt"));
-            if(reader.readLine() == null){
-                continueButton.setEnabled(false);
-            }
-            reader.close();
-        }
-        catch(IOException e){
-            e.printStackTrace();
+        if(!GameSaveController.hasData()) {
+            continueButton.setEnabled(false);
         }
 
         continueButton.addActionListener(new ActionListener() {
@@ -40,7 +32,15 @@ public class MainWindow extends Window {
         DefaultButton newGameButton = new DefaultButton("New Game", 410, 150);
          newGameButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                if(GameSaveController.hasData()){
+                    int dialogResult = JOptionPane.showConfirmDialog(window, "Are you sure you want to start a new game? The current game will be lost.", "Warning", JOptionPane.YES_NO_OPTION);
+                    if(dialogResult == JOptionPane.YES_OPTION){
+                        game(true);
+                    }
+                }
+                else{
                     game(true);
+                }
             }
         });
 
