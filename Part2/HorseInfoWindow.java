@@ -102,11 +102,13 @@ public class HorseInfoWindow extends Window{
             }});
         });
 
-        DefaultButton deleteButton = new DefaultButton("Delete", 220, 320, 140, 30);
-        deleteButton.addActionListener(e -> {
-            int confirm = JOptionPane.showConfirmDialog(window, "Are you sure you want to delete this horse?", "Confirmation", JOptionPane.YES_NO_OPTION);
+        DefaultButton sellButton = new DefaultButton("Sell", 220, 320, 140, 30);
+        sellButton.addActionListener(e -> {
+            int price = (int)((double)Horse.getHorsePrice(horse.getBreed(), horse.getConfidence()));
+            int confirm = JOptionPane.showConfirmDialog(window, "Are you sure you want to sell this horse for $"+price+"?", "Confirmation", JOptionPane.YES_NO_OPTION);
             if (confirm == JOptionPane.YES_OPTION) {
                 race.getHorses().remove(horseIndex);
+                race.getPlayer().setMoney(race.getPlayer().getMoney() + price);
                 window.dispose();
                 if(race.getHorses().size() < 2) {
                     HorseAdditionWindow horseAdditionWindow = new HorseAdditionWindow(race);
@@ -130,6 +132,6 @@ public class HorseInfoWindow extends Window{
         window.add(betButton);
         window.add(removeBetButton);
         window.add(betLabel);
-        window.add(deleteButton);
+        window.add(sellButton);
     }
 }
