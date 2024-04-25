@@ -83,6 +83,11 @@ public class Horse
                 return 0;
         }
     }
+
+    public static int getHorsePrice(Breed breed, double confidence){
+        int price = getBreedPrice(breed);
+        return (int)((double)price * confidence/2.0);
+    }
     
     //Other methods of class Horse
     public void fall()
