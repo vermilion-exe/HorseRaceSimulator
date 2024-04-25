@@ -132,24 +132,19 @@ public class Race
     }
     
     /**
-     * Adds a horse to the race in a given lane
+     * Adds a horse to the race in a given lane and returns true if horse was added
      * 
      * @param theHorse the horse to be added to the race
      * @param laneNumber the lane that the horse will be added to
      */
-    public void addHorse(Horse theHorse){
-        if(horses.size() == 10)
+    public boolean addHorse(Horse theHorse){
+        if(horses.size() < 10)
         {
-            System.out.println("You can't add more than 10 horses to the game!");
-            return;
-        }
-        if(theHorse == null)
-        {
-            System.out.println("The horse is not defined");
-            return;
+            horses.add(theHorse);
+            return true;
         }
         
-        horses.add(theHorse);
+        return false;
     }
     
     /**

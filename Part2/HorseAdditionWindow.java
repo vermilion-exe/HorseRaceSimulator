@@ -65,13 +65,18 @@ public class HorseAdditionWindow extends Window{
                     return;
                 }
                 Horse horse = new Horse(horseNameField.getText(), confidence, Breed.valueOf(horseBreedField.getSelectedItem().toString()));
-                race.addHorse(horse);
-                JLabel addedLabel = new JLabel(horse.getName()+" added! Current confidence: "+horse.getConfidence());
-                addedLabel.setBounds(500, currentHeight, 300, 30);
-                currentHeight += 50;
-                window.add(addedLabel); // Add the label to the panel
-                window.revalidate(); // Revalidate the window to update the UI
-                window.repaint();
+                boolean added = race.addHorse(horse);
+                if(added){
+                    JLabel addedLabel = new JLabel(horse.getName()+" added! Current confidence: "+horse.getConfidence());
+                    addedLabel.setBounds(500, currentHeight, 300, 30);
+                    currentHeight += 50;
+                    window.add(addedLabel); // Add the label to the panel
+                    window.revalidate(); // Revalidate the window to update the UI
+                    window.repaint();
+                }
+                else{
+                    JOptionPane.showMessageDialog(window, "You can only add up to 10 horses!", "Warning", JOptionPane.WARNING_MESSAGE);
+                }
             }
         });
 
