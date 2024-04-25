@@ -1,6 +1,8 @@
 package Part2;
 
 import javax.swing.*;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -17,13 +19,21 @@ public class HorseAdditionWindow extends Window{
     public HorseAdditionWindow(Race race) {
         super("Add Horse");
 
+        JLabel moneyLabel = new JLabel("Money: $"+race.getPlayer().getMoney());
+        moneyLabel.setBounds(50, 10, 200, 30);
+
         JLabel horseNameLabel = new JLabel("Horse Name:");
-        horseNameLabel.setBounds(50, 30, 200, 30);
+        horseNameLabel.setBounds(50, 50, 200, 30);
         JTextField horseNameField = new JTextField("Name");
-        horseNameField.setBounds(50, 80, 200, 30);
+        horseNameField.setBounds(50, 100, 200, 30);
+
+        JLabel horseBreedLabel = new JLabel("Horse Breed:");
+        horseBreedLabel.setBounds(50, 250, 200, 30);
+        JComboBox horseBreedField = new JComboBox(new String[]{"Eriskay", "Haflinger", "Aegidienberger", "Connemara", "Andalusian", "Caspian", "Morgan", "Arabian"});
+        horseBreedField.setBounds(50, 300, 200, 30);
 
         JLabel horseConfidenceLabel = new JLabel("Horse Confidence:");
-        horseConfidenceLabel.setBounds(50, 130, 200, 30);
+        horseConfidenceLabel.setBounds(50, 150, 200, 30);
         JSlider horseConfidenceSlider = new JSlider();
         horseConfidenceSlider.setMinimum(10); 
         horseConfidenceSlider.setMaximum(100);
@@ -37,18 +47,32 @@ public class HorseAdditionWindow extends Window{
         horseConfidenceSlider.setPaintTicks(true);
         horseConfidenceSlider.setMajorTickSpacing(50);
         horseConfidenceSlider.setMinorTickSpacing(5);
-        horseConfidenceSlider.setBounds(50, 180, 200, 50);
+        horseConfidenceSlider.setBounds(50, 200, 200, 50);
 
-        JLabel horseBreedLabel = new JLabel("Horse Breed:");
-        horseBreedLabel.setBounds(50, 230, 200, 30);
-        JComboBox horseBreedField = new JComboBox(new String[]{"Eriskay", "Haflinger", "Aegidienberger", "Connemara", "Andalusian", "Caspian", "Morgan", "Arabian"});
-        horseBreedField.setBounds(50, 280, 200, 30);
+        JLabel horsePriceLabel = new JLabel("Horse Price: $"+Horse.getHorsePrice(Breed.valueOf(horseBreedField.getSelectedItem().toString()),
+        Math.round(horseConfidenceSlider.getValue()/10.0)/10.0));
+        horsePriceLabel.setBounds(50, 350, 200, 30);
 
-        DefaultButton addButton = new DefaultButton("Add Horse", 50, 330);
+        horseBreedField.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                horsePriceLabel.setText("Horse Price: $"+Horse.getHorsePrice(Breed.valueOf(horseBreedField.getSelectedItem().toString()),
+                Math.round(horseConfidenceSlider.getValue()/10.0)/10.0));
+            }
+        });
 
-        DefaultButton continueButton = new DefaultButton("Continue", 50, 380);
+        horseConfidenceSlider.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                horsePriceLabel.setText("Horse Price: $"+Horse.getHorsePrice(Breed.valueOf(horseBreedField.getSelectedItem().toString()),
+                Math.round(horseConfidenceSlider.getValue()/10.0)/10.0));
+            }
+        });
 
-        DefaultButton backButton = new DefaultButton("Back", 50, 430);
+        DefaultButton addButton = new DefaultButton("Add Horse", 50, 380);
+
+        DefaultButton continueButton = new DefaultButton("Continue", 50, 430);
+
+        DefaultButton backButton = new DefaultButton("Back", 50, 480);
 
         JLabel horseLabel = new JLabel("Horses:");
         horseLabel.setBounds(500, 30, 200, 30);
@@ -59,23 +83,38 @@ public class HorseAdditionWindow extends Window{
                     JOptionPane.showMessageDialog(window, "Please fill in all the fields", "Warning", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
-                Double confidence = Math.round(horseConfidenceSlider.getValue()/10.0)/10.0;
-                if(race.getPlayer().getUnlockedBreeds().contains(Breed.valueOf(horseBreedField.getSelectedItem().toString())) == false) {
+                else if(race.getPlayer().getUnlockedBreeds().contains(Breed.valueOf(horseBreedField.getSelectedItem().toString())) == false) {
                     JOptionPane.showMessageDialog(window, "You have not unlocked this breed!", "Warning", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
-                Horse horse = new Horse(horseNameField.getText(), confidence, Breed.valueOf(horseBreedField.getSelectedItem().toString()));
-                boolean added = race.addHorse(horse);
-                if(added){
-                    JLabel addedLabel = new JLabel(horse.getName()+" added! Current confidence: "+horse.getConfidence());
-                    addedLabel.setBounds(500, currentHeight, 300, 30);
-                    currentHeight += 50;
-                    window.add(addedLabel); // Add the label to the panel
-                    window.revalidate(); // Revalidate the window to update the UI
-                    window.repaint();
-                }
-                else{
-                    JOptionPane.showMessageDialog(window, "You can only add up to 10 horses!", "Warning", JOptionPane.WARNING_MESSAGE);
+
+                int confirm = JOptionPane.showConfirmDialog(window, "Are you sure you want to buy this horse for: $"+
+                Horse.getHorsePrice(Breed.valueOf(horseBreedField.getSelectedItem().toString()),
+                Math.round(horseConfidenceSlider.getValue()/10.0)/10.0), "Confirmation", JOptionPane.YES_NO_OPTION);
+
+                if (confirm == JOptionPane.YES_OPTION) {
+                    Double confidence = Math.round(horseConfidenceSlider.getValue()/10.0)/10.0;
+                    int price = Horse.getHorsePrice(Breed.valueOf(horseBreedField.getSelectedItem().toString()), confidence);
+                    if(price > race.getPlayer().getMoney()){
+                        JOptionPane.showMessageDialog(window, "You don't have enough money to buy this horse!", "Warning", JOptionPane.WARNING_MESSAGE);
+                        return;
+                    }
+                    race.getPlayer().setMoney(race.getPlayer().getMoney()-price);
+
+                    Horse horse = new Horse(horseNameField.getText(), confidence, Breed.valueOf(horseBreedField.getSelectedItem().toString()));
+                    boolean added = race.addHorse(horse);
+                    if(added){
+                        moneyLabel.setText("Money: $"+race.getPlayer().getMoney());
+                        JLabel addedLabel = new JLabel(horse.getName()+" added! Current confidence: "+horse.getConfidence());
+                        addedLabel.setBounds(500, currentHeight, 300, 30);
+                        currentHeight += 50;
+                        window.add(addedLabel); // Add the label to the panel
+                        window.revalidate(); // Revalidate the window to update the UI
+                        window.repaint();
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(window, "You can only add up to 10 horses!", "Warning", JOptionPane.WARNING_MESSAGE);
+                    }
                 }
             }
         });
@@ -103,10 +142,12 @@ public class HorseAdditionWindow extends Window{
             }
         });
 
+        window.add(moneyLabel);
         window.add(horseNameLabel);
         window.add(horseNameField);
         window.add(horseConfidenceLabel);
         window.add(horseConfidenceSlider);
+        window.add(horsePriceLabel);
         window.add(horseBreedLabel);
         window.add(horseBreedField);
         window.add(addButton);
