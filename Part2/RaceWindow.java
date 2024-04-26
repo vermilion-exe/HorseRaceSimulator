@@ -29,7 +29,7 @@ public class RaceWindow extends Window {
 
         prepareRace(race, horses);
 
-        startRace(race, horses, backButton);
+        startRaceGUI(race, horses, backButton);
     }
 
     private void prepareRace(Race race, JLabel[] horses){
@@ -83,7 +83,7 @@ public class RaceWindow extends Window {
         setVisible(true);
     }
 
-    private void startRace(Race race, JLabel[] horses, JButton backButton){
+    private void startRaceGUI(Race race, JLabel[] horses, JButton backButton){
         Map<Horse, Double> horseConfidenceMap = new HashMap<>();
         for(Horse horse : race.getHorses())
         {
