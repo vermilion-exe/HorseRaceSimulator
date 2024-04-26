@@ -55,6 +55,7 @@ public class HorseInfoWindow extends Window{
         betSlider.setPaintTrack(true);
         betSlider.setPaintTicks(true);
         betSlider.setPaintLabels(true);
+        betSlider.setMinorTickSpacing(10);
         betSlider.setMajorTickSpacing(50);
         betSlider.setLabelTable(new Hashtable<Integer, JLabel>() {{
             put(0, new JLabel("$0")); 
@@ -63,6 +64,13 @@ public class HorseInfoWindow extends Window{
             put(race.getPlayer().getMoney()*3/4, new JLabel("$"+race.getPlayer().getMoney()*3/4));
             put(race.getPlayer().getMoney(), new JLabel("$"+race.getPlayer().getMoney()));
         }});
+
+        JLabel betAmountLabel = new JLabel("Bet amount: $"+betSlider.getValue());
+        betAmountLabel.setBounds(10, 190, 200, 30);
+
+        betSlider.addChangeListener(e -> {
+            betAmountLabel.setText("Bet amount: $"+betSlider.getValue());
+        });
 
         DefaultButton betButton = new DefaultButton("Bet", 10, 280, 140, 30);
         betButton.addActionListener(e -> {
@@ -128,6 +136,7 @@ public class HorseInfoWindow extends Window{
         window.add(horseSpeed);
         window.add(horseConfidence);
         window.add(closeButton);
+        window.add(betAmountLabel);
         window.add(betSlider);
         window.add(betButton);
         window.add(removeBetButton);

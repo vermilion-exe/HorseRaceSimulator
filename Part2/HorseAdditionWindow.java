@@ -32,8 +32,7 @@ public class HorseAdditionWindow extends Window{
         JComboBox horseBreedField = new JComboBox(new String[]{"Eriskay", "Haflinger", "Aegidienberger", "Connemara", "Andalusian", "Caspian", "Morgan", "Arabian"});
         horseBreedField.setBounds(50, 300, 200, 30);
 
-        JLabel horseConfidenceLabel = new JLabel("Horse Confidence:");
-        horseConfidenceLabel.setBounds(50, 150, 200, 30);
+
         JSlider horseConfidenceSlider = new JSlider();
         horseConfidenceSlider.setMinimum(10); 
         horseConfidenceSlider.setMaximum(100);
@@ -49,6 +48,9 @@ public class HorseAdditionWindow extends Window{
         horseConfidenceSlider.setMinorTickSpacing(5);
         horseConfidenceSlider.setBounds(50, 200, 200, 50);
 
+        JLabel horseConfidenceLabel = new JLabel("Horse Confidence: "+Math.round(horseConfidenceSlider.getValue()/10.0)/10.0);
+        horseConfidenceLabel.setBounds(50, 150, 200, 30);
+
         JLabel horsePriceLabel = new JLabel("Horse Price: $"+Horse.getHorsePrice(Breed.valueOf(horseBreedField.getSelectedItem().toString()),
         Math.round(horseConfidenceSlider.getValue()/10.0)/10.0));
         horsePriceLabel.setBounds(50, 350, 200, 30);
@@ -63,6 +65,7 @@ public class HorseAdditionWindow extends Window{
         horseConfidenceSlider.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
+                horseConfidenceLabel.setText("Horse Confidence: "+Math.round(horseConfidenceSlider.getValue()/10.0)/10.0);
                 horsePriceLabel.setText("Horse Price: $"+Horse.getHorsePrice(Breed.valueOf(horseBreedField.getSelectedItem().toString()),
                 Math.round(horseConfidenceSlider.getValue()/10.0)/10.0));
             }
